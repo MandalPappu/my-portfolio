@@ -2,21 +2,16 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 interface project extends Document {
-    name: string
-    image: string
+    projectName: string
+    projectImage: string
+    weblink: string
 }
-const projectModel = new Schema({
-    name: {
-        type: String,
-        req: true,
-        trim: true
-    },
-    image: {
-        type: String,
-        req: true,
-    }
+const projectSchema = new Schema({
+    projectName: String,
+    projectImage: String,
+    weblink: String
 
-}, { timestamps: true });
+});
 
-const Project = mongoose.models.User<project> || mongoose.model("Project", projectModel)
-export default Project;
+const projectModel = mongoose.models.Project<project> || mongoose.model("Project", projectSchema)
+export default projectModel;

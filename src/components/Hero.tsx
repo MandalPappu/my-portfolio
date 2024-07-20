@@ -28,14 +28,14 @@ const Hero = () => {
         </h1>
         <Link
           href="../codeman.png"
-          download={"../codeman.png"}
+          download={"../codeman.webp"}
           className="px-6 py-2 font-semibold text-2xl bg-[#06D001] rounded-xl text-black my-4"
         >
           resume
         </Link>
       </div>
       <div className="-mt-8">
-        <img src="../codeman.png" alt="profile" className="w-[40rem]" />
+        <img src="../codeman.webp" alt="profile" className="w-[40rem]" />
       </div>
     </div>
   );

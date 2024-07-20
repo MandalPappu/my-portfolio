@@ -21,7 +21,7 @@ export default function Home() {
           About
         </h1>
         <div className="flex justify-between items-center gap-4">
-          <img src="../boyicon.png" alt="men" className="w-64 md:w-[40%]" />
+          <img src="../boyicon.webp" alt="men" className="w-64 md:w-[40%]" />
           <div>
             <About />
           </div>

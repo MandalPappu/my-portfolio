@@ -2,21 +2,16 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 interface skill extends Document {
-    name: string
-    image: string
+    skillName: string
+    skillImage: string
+    weblink: string
 }
-const skillModel = new Schema({
-    name: {
-        type: String,
-        req: true,
-        trim: true
-    },
-    image: {
-        type: String,
-        req: true,
-    }
+const skillSchema = new Schema({
+    skillName: String,
+    skillImage: String,
+    weblink: String
 
-}, { timestamps: true });
+});
 
-const Skill = mongoose.models.User<skill> || mongoose.model("Skill", skillModel)
-export default Skill;
+const skillModel = mongoose.models.Skill<skill> || mongoose.model("Skill", skillSchema)
+export default skillModel;
