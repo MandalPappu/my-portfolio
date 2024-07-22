@@ -6,7 +6,8 @@ import aboutModel from "@/models/about.model";
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
-        const aboutData = req.body
+        const Data = await req.json();
+        const { aboutData, title } = Data;
         if (!aboutData) {
             return NextResponse.json({
                 success: false,
@@ -15,7 +16,8 @@ export async function POST(req: NextRequest) {
         }
 
         const about = await aboutModel.create({
-            aboutData
+            aboutData,
+            title
         })
         if (about) {
             return NextResponse.json({
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest) {
         }
 
     } catch (error) {
-        console.log("error in upload projects", error);
+        console.log("error in upload aboutData", error);
         return NextResponse.json({
             success: false,
             message: "uploading error"

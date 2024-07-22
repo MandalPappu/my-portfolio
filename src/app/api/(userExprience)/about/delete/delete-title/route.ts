@@ -6,8 +6,9 @@ import aboutModel from "@/models/about.model";
 export async function DELETE(req: NextRequest) {
     await dbConnect();
     try {
-        const aboutData = await req.json()
-        await aboutModel.deleteOne(aboutData._id)
+        const {aboutData} = await req.json()
+        const about = await aboutModel.findById(aboutData._id)
+        await aboutModel.deleteOne(about.title)
 
         return NextResponse.json({
             success: true,
