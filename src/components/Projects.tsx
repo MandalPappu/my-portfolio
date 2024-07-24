@@ -1,45 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useMemo, useState } from "react";
 
 const Projects = () => {
+  const [data, setData] = useState([{
+    _id: "",
+    projectImage: "",
+    projectName: "",
+    webLink:""
+  }]);
+
+  // useMemo(async () => {
+    
+  // }, [])
+
+  const fetchData = async() => {
+    const response = await axios.get("/api/project/get");
+    console.log(response.data.allProjects);
+    setData(response.data.allProjects);
+  }
+  
+  useEffect(() => {
+    fetchData();
+  },[])
+  
   return (
-    <div className="flex flex-wrap">
-      <div className="w-[30%] m-4 bg-slate-500 p-6 rounded-xl flex justify-center flex-col">
-        <img src="../youtubeclone.png" alt="youtubeclone" className="" />
-        <p className="text-2xl font-semibold text-black my-2">youtubeclone</p>
-        <button className="mt-4 bg-red-400 px-10 py-2 rounded-lg mx-auto">
-          see
-        </button>
-      </div>
-      <div className="w-[30%] m-4 bg-slate-500 p-6 rounded-xl flex justify-center flex-col">
-        <img src="../youtubeclone.png" alt="youtubeclone" className="" />
-        <button className="mt-4 bg-red-400 px-10 py-2 rounded-lg mx-auto">
-          see
-        </button>
-      </div>
-      <div className="w-[30%] m-4 bg-slate-500 p-6 rounded-xl flex justify-center flex-col">
-        <img src="../youtubeclone.png" alt="youtubeclone" className="" />
-        <button className="mt-4 bg-red-400 px-10 py-2 rounded-lg mx-auto">
-          see
-        </button>
-      </div>
-      <div className="w-[30%] m-4 bg-slate-500 p-6 rounded-xl flex justify-center flex-col">
-        <img src="../youtubeclone.png" alt="youtubeclone" className="" />
-        <button className="mt-4 bg-red-400 px-10 py-2 rounded-lg mx-auto">
-          see
-        </button>
-      </div>
-      <div className="w-[30%] m-4 bg-slate-500 p-6 rounded-xl flex justify-center flex-col">
-        <img src="../youtubeclone.png" alt="youtubeclone" className="" />
-        <button className="mt-4 bg-red-400 px-10 py-2 rounded-lg mx-auto">
-          see
-        </button>
-      </div>
-      <div className="w-[30%] m-4 bg-slate-500 p-6 rounded-xl flex justify-center flex-col">
-        <img src="../youtubeclone.png" alt="youtubeclone" className="" />
-        <button className="mt-4 bg-red-400 px-10 py-2 rounded-lg mx-auto">
-          see
-        </button>
-      </div>
+    <div className="flex flex-wrap justify-center">
+      {data && data.map((project, _id) => (
+        <div className="w-[24%] m-4 bg-slate-800 px-2 rounded-xl flex justify-center flex-col">
+          <img src={project?.projectImage} alt="youtubeclone" className="" />
+          <h1 className="my-2 text-center text-white font-medium tracking-widest">{project?.projectName }</h1>
+        </div>
+      ))}
     </div>
   );
 };

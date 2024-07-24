@@ -4,9 +4,8 @@ const DB_NAME = "My-Portfolio"
 
 async function dbConnect() {
     let isConnected = false;
+    if (isConnected) return console.log("db already connected!.");
     try {
-        if (isConnected) return console.log("db already connected!.");
-
         const connect = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`);
         console.log(`Connected to MongoDB ${DB_NAME} database and host ${connect.connection.host}`)
         isConnected = true;

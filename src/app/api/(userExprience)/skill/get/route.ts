@@ -11,7 +11,7 @@ export async function GET() {
             return NextResponse.json({
                 success: true,
                 message: "all skills found successfully",
-                data: allSkills
+                allSkills
             });
         } else {
             return NextResponse.json({

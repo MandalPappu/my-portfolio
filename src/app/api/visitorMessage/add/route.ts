@@ -5,10 +5,8 @@ import visitorModel from "@/models/contact.model";
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
-        const formData = await req.formData();
-        const visitorName = formData.get("visitorName")
-        const visitorEmail = formData.get("visitorEmail")
-        const visitorMessage = formData.get("visitorMessage")
+        const data = await req.json();
+        const { visitorName, visitorEmail, visitorMessage } = data;
         if (!visitorName || !visitorEmail || !visitorMessage) {
             return NextResponse.json({
                 success: false,

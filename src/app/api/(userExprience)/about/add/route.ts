@@ -7,30 +7,21 @@ export async function POST(req: NextRequest) {
     await dbConnect();
     try {
         const Data = await req.json();
-        const { aboutData, title } = Data;
-        if (!aboutData) {
-            return NextResponse.json({
-                success: false,
-                message: "about is required"
-            }, { status: 401 })
-        }
-
+        const { aboutData } = Data;
         const about = await aboutModel.create({
-            aboutData,
-            title
+            aboutData    
         })
-        if (about) {
-            return NextResponse.json({
-                success: true,
-                message: "project upload successfully",
-                data: about
-            });
-        } else {
+        
+        if (!about) {
             return NextResponse.json({
                 success: false,
                 message: "Something goes wrong !Please try again",
-            });
+            },{status:401});
         }
+        return NextResponse.json({
+            success: true,
+            message: "About data added successfully",
+            },{status:200});
 
     } catch (error) {
         console.log("error in upload aboutData", error);

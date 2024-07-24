@@ -1,23 +1,24 @@
 "use client";
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, {useState,} from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import UploadSkills from "@/components/Uploads/UploadSkills";
 import UploadProjects from "@/components/Uploads/UploadProjects";
 import UploadResume from "@/components/Uploads/UploadResume";
-import VisitorMessages from "@/components/Uploads/Visitor's-Messages";
+
 import { FaRegBell } from "react-icons/fa";
 import UploadAbout from "@/components/Uploads/UploadAbout";
 import Messages from "@/components/Messages";
-import { ImCross } from "react-icons/im";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 
 const page = () => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const page = () => {
   // const messageEnable = () => {
   //   setIconPress(iconpress +1);
   // };
+
 
   const logoutHandler = async () => {
     await axios
@@ -43,29 +45,26 @@ const page = () => {
         });
       });
   };
+
+
   return (
     <div className="w-full h-screen -my-2 bg-slate-950 text-slate-400 md:px-14 px-4">
       <nav className="flex my-2 h-16 bg-slate-900 justify-between items-center px-4 rounded-xl">
         <h1 className="text-3xl font-bold">Pappu</h1>
         <div className="flex items-center gap-4">
           <div className="relative">
-            {iconpress ? (
-              <ImCross
-                aria-expanded={iconpress ? true : false}
-                onClick={() => setIconPress((prev) => !prev)}
-              />
-            ) : (
-              <FaRegBell
-                size={25}
-                aria-expanded={iconpress ? true : false}
-                onClick={() => setIconPress((prev) => !prev)}
-              />
-            )}
-            {iconpress && (
-              <div className="absolute top-5 right-1 w-60 rounded-md">
-                <Messages />
-              </div>
-            )}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <FaRegBell size={25} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-slate-950">
+                <DropdownMenuLabel className="text-white">Messages</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="bg-slate-950 ">
+                  <Messages />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <button
             onClick={logoutHandler}

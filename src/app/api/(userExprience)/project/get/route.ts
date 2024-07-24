@@ -9,8 +9,8 @@ export async function GET() {
         if (allProjects) {
             return NextResponse.json({
                 success: true,
-                message: "project upload successfully",
-                data:allProjects
+                message: "project fetched successfully",
+                allProjects
             });
         } else {
             return NextResponse.json({

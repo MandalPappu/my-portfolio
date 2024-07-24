@@ -5,7 +5,7 @@ import resumeModel from "@/models/resume.model";
 export async function GET() {
     await dbConnect();
     try {
-        const resume = await resumeModel.find()
+        const resume = await resumeModel.findOne()
 
         return NextResponse.json({
             data:resume
