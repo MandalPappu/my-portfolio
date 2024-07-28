@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
                 message: "all fields are required"
             }, { status: 401 })
         }
-        const skillImages: any = await uploadToCloudinary(skillImage, "next-galleryImage");
+        const skillImages:any = await uploadToCloudinary(skillImage, "next-galleryImage");
+        
         const skillImageUrl = skillImages.url
 
         if (!skillImageUrl) {

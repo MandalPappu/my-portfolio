@@ -3,26 +3,13 @@ import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 const Hero = () => {
-  const words = [
-    {
-      text: "Full",
-      className: "text-slate-600 dark:text-slate-600 text-3xl ",
-    },
-    {
-      text: "Stack",
-      className: "text-slate-600 dark:text-slate-600 text-3xl",
-    },
-    {
-      text: "Developer",
-      className: "text-orange-400 dark:text-orange-400 text-4xl",
-    },
-  ];
+
   const [data, setData] = useState({
     resume:""
   });
-  const [saveData, setSaveData] = useState(false)
 
   useMemo(async () => {
     try {
@@ -33,31 +20,32 @@ const Hero = () => {
     }
   }, [])
   
-  const saveResume = () => {
-    setSaveData(true)
-  }
-  
 
   return (
-    <div className="flex justify-between">
-      <div className="w-1/2 md:mt-20 mx-12">
-        <p className="text-2xl md:text-4xl my-4">Hi,</p>
-        <h2 className="text-2xl md:text-6xl my-4 ">I'm Pappu Mandal</h2>
-        <h1 className="text-4xl my-4 font-semibold">
-          <TypewriterEffectSmooth words={words} />
+    <div className="w-full flex sm:flex-row flex-col-reverse justify-between  sm:justify-between items-center sm:px-28 ">
+      <div className="w-full sm:mt-20 text-center sm:text-start">
+        <p className="text-3xl md:text-4xl my-4">Hi,</p>
+        <h2 className="text-2xl sm:text-xl md:text-3xl lg:text-6xl my-4 ">
+          I'm Pappu Mandal
+        </h2>
+        <h1 className="text-4xl my-4 font-medium">
+          Full Stack <span className="font-bold text-rose-600">Developer</span>
+        </h1>
         <Link
-          href={data.resume ? data.resume : "https://www.404notfound.com"  }
+          href={data.resume ? data.resume : "https://www.404notfound.com"}
           download={data.resume}
           target="_blank"
-          onClick={saveResume}
-          className="px-6 py-2 font-semibold text-2xl bg-[#06D001] rounded-xl text-black my-4"
+          className="px-3 py-1 font-semibold text-2xl bg-[#06D001] rounded-xl text-black my-4"
         >
           resume
         </Link>
-        </h1>
       </div>
-      <div className="-mt-8">
-        <img src="../codeman.webp" alt="profile" className="w-[40rem]" />
+      <div className=" rounded-full flex justify-center items-center ">
+        <img
+          src="../../profile.jpg"
+          alt="profile" 
+          className="w-80 h-80 rounded-full sm:h-60 lg:h-80 object-fill sm:rounded-xl mt-5 ml-6 lg:mr-[17rem] lg:mt-36  sm:ml-0 outline-none"
+        />
       </div>
     </div>
   );

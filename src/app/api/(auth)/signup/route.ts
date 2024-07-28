@@ -8,8 +8,8 @@ export async function POST(req: NextRequest) {
     await dbConnect();
     try {
         const reqbody = await req.json();
-        const { email, password } = reqbody;
-        if ( !email || !password) {
+        const { email, password, isAdmin } = reqbody;
+        if ( !email || !password || !isAdmin) {
             return NextResponse.json({
                 message: "all fields are required"
             })
@@ -24,8 +24,7 @@ export async function POST(req: NextRequest) {
         }
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        const userData = await User.create({ email, password: hashedPassword })
-        console.log(userData);
+        await User.create({ email, password: hashedPassword, isAdmin })
         
         return NextResponse.json({
             success: true,

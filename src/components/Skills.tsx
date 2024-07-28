@@ -8,7 +8,7 @@ const Skills = () => {
   ]);
   const [loading, setLoading] = useState(false);
 
-    useMemo(async () => {
+    const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get("/api/skill/get")
@@ -23,22 +23,36 @@ const Skills = () => {
   }, []);
 
 
-  // useEffect(() => {
-  //   fetchData();
-  //   setLoading(false);
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
   
-  return loading ? <h1 className="text-center text-3xl text-slate-400">Skills are loading...</h1> : (
-    <div className="flex justify-center items-center flex-wrap">
-      {data ?
-        data.map((skill, _id) => (
-          <div key={_id} className="bg-slate-800/65 rounded-lg w-36 text-center flex justify-center items-center flex-col m-4">
-            <img src={skill.skillImage ? skill.skillImage : ""} alt="not found" className="w-20 h-20" />
-            <h1 className="text-center text-white font-semibold text-xl">
-              {skill.skillName ? skill.skillName : "not found"}
-            </h1>
-          </div>
-        )) : "<h1>Loading...</h1>"}
+  return loading ? (
+    <h1 className="text-center text-3xl text-slate-400">
+      Skills are loading...
+    </h1>
+  ) : (
+    <div className="w-full text-center sm:px-28 ">
+        <h1 className="text-3xl font-bold text-center mt-20">Skills</h1>
+      <div className="w-full md:mx-auto lg:mx-auto flex justify-center flex-wrap items-center mt-7 px-5">
+        {data
+          ? data.map((skill, _id) => (
+              <div
+                key={_id}
+                className="bg-slate-800/65 rounded-xl w-28 md:w-36 text-center flex justify-center items-center flex-col m-4"
+              >
+                <img
+                  src={skill.skillImage ? skill.skillImage : ""}
+                  alt="not found"
+                  className="w-20 h-20 object-contain"
+                />
+                <h1 className="text-center text-white font-semibold text-xl">
+                  {skill.skillName ? skill.skillName : "not found"}
+                </h1>
+              </div>
+            ))
+          : "Loading..."}
+      </div>
     </div>
   );
 };

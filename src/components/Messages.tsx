@@ -1,18 +1,24 @@
 import axios from "axios";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-const Messages = () => {
-  const [data, setData] = useState([{
-    _id: '',
-    visitorName: '',
-    visitorEmail: '',
-    visitorMessage: ''
-  }]);
+interface ImessageData {
+  _id: string;
+  visitorName: string;
+  visitorEmail: string;
+  visitorMessage: string;
+}
 
-  useMemo(async () => {
-    const res = await axios.get("/api/visitorMessage/get")
+const Messages:React.FC = () => {
+  const [data, setData] = useState<ImessageData[] | undefined>([]);
+
+  
+  const dataFetch = useCallback(async () => {
+    const res = await axios.get("/api/visitorMessage/get");
     console.log(res.data);
     setData(res.data.data);
+  }, []);
+  useEffect(() => {
+    dataFetch();
   },[])
   
 

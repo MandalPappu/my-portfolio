@@ -1,54 +1,61 @@
 import axios from "axios";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const UploadResume = () => {
-  const [resume, setResume] = useState<File | null>(null);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   
-      const onSubmitResumeHandler = async () => {
+      const onSubmitResumeHandler = async (
+        e: MouseEvent<HTMLButtonElement>
+      ) => {
+        e.preventDefault();
         try {
-
-          if (!resume) return;
+          setLoading(true)
+          if (!resumeFile) return;
           const formData = new FormData();
-          formData.append("resume", resume);
-          const res = await axios.post("/api/resume/add", formData)
+          formData.append("resume", resumeFile);
+          const res = await axios
+            .post("/api/resume/add", formData)
             .then((res) => res.data.message)
             .catch((res) => res.response.data.message);
           console.log(res);
-          
-          toast(res, { position: "top-center", autoClose: 2000 })
 
-          setResume(null)
-        } catch (error:any) {
-          console.log(error);
-          toast(error.response.data.message)
+          toast(res, { position: "top-center", autoClose: 2000 });
+          setLoading(false)
+          setResumeFile(null);
+        } catch (error: any) {
+          setLoading(false)
+          setResumeFile(null)
+          toast(error.response.data.message);
         }
-  };
+      };
     useEffect(() => {
-      if (!resume) {
+      if ({resume:null}) {
         setButtonDisabled(true);
       }
-    }, [resume]);
+    }, [resumeFile]);
     return (
-      <div className="flex flex-col my-4">
+      <div className="flex w-80 mx-auto sm:mx-0 flex-col my-4 text-center sm:text-start">
         <h1 className="text-2xl font-semibold my-2">uploads yours resume...</h1>
-        <form>
+        <form className="w-60 mx-auto sm:mx-0">
           <input
             type="file"
-            required={true}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setResume(e.target.files && e.target.files[0] )
+            onChange={(e) =>
+              setResumeFile(e.target.files ? e.target.files[0] : null)
             }
             className=" px-2 py-1 rounded-2xl my-2"
           />
+          <button
+            onClick={onSubmitResumeHandler}
+            className={`my-2 hover:opacity-50 transition-colors sm:w-28 py-2 px-4 font-semibold text-base text-black rounded-xl cursor-pointer bg-green-500 ${
+              buttonDisabled ? "opacity-30" : ""
+            } `}
+          >
+            {loading ? "uploading..." : "upload"}
+          </button>
         </form>
-        <button
-          onClick={onSubmitResumeHandler}
-          className={`w-full hover:bg-green-950 hover:text-white transition-colors md:w-28 py-2 font-semibold text-base text-black rounded-lg cursor-pointer ${buttonDisabled ? "bg-slate-300" : "bg-green-500"} `}
-        >
-          upload
-        </button>
       </div>
     );
 };

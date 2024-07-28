@@ -1,13 +1,17 @@
 "use client"
-import React, { ChangeEvent, FormEvent, ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Link from "next/link";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
+interface IUser {
+  email: string;
+  password: string;
+}
 
 const page:React.FC = ():ReactNode => {
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<IUser>({
     email: '',
     password: ''
   }) 
@@ -47,7 +51,6 @@ const page:React.FC = ():ReactNode => {
             placeholder="email"
             value={userData.email}
             required
-
             onChange={(e) =>
               setUserData({ ...userData, email: e.target.value })
             }
