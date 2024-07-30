@@ -5,8 +5,8 @@ import skillModel from "@/models/skills.model";
 export async function DELETE(req:NextRequest) {
     await dbConnect();
     try {
-        const skillItem =await req.json()
-        await skillModel.deleteOne(skillItem._id)
+        const {data} =await req.json()
+        await skillModel.deleteOne(data._id)
 
         return NextResponse.json({
             success: true,

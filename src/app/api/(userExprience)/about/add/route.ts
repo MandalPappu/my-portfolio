@@ -6,11 +6,11 @@ import aboutModel from "@/models/about.model";
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
-        const Data = await req.json();
-        const { aboutData } = Data;
-        const about = await aboutModel.create({
-            aboutData    
-        })
+        const  {aboutData}  = await req.json();
+        console.log("about add:", aboutData);
+        
+        const about = await aboutModel.create({aboutData})
+        console.log("aboutData:", about);
         
         if (!about) {
             return NextResponse.json({

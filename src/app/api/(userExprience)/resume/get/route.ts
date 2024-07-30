@@ -6,7 +6,8 @@ export async function GET() {
     await dbConnect();
     try {
         const resume = await resumeModel.findOne()
-
+        console.log(resume);
+        
         return NextResponse.json({
             data:resume
         }, { status: 200 })

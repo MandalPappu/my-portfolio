@@ -29,11 +29,12 @@ const UploadResume = () => {
           setLoading(false)
           setResumeFile(null)
           toast(error.response.data.message);
+          process.exit(1);
         }
       };
     useEffect(() => {
-      if ({resume:null}) {
-        setButtonDisabled(true);
+      if (resumeFile) {
+        setButtonDisabled(false);
       }
     }, [resumeFile]);
     return (

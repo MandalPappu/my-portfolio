@@ -5,11 +5,12 @@ import aboutModel from "@/models/about.model";
 export async function GET() {
     await dbConnect();
     try {
-        const aboutData = await aboutModel.findOne({})
+        const aboutData = await aboutModel.findOne()
+        
         if (aboutData) {
             return NextResponse.json({
                 success: true,
-                message: "project upload successfully",
+                message: "data fetched successfully",
                 data: aboutData
             });
         } else {

@@ -1,15 +1,22 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConfig";
 import resumeModel from "@/models/resume.model";
 
 
-
-
-export async function DELETE() {
+export async function DELETE(req:NextRequest) {
     await dbConnect();
     try {
-        await resumeModel.deleteOne()
+        const { _id } = await req.json()
+        
+        if (!_id) {
+            return NextResponse.json({
+                success: false,
+                message: "resume not found",
+            }, { status: 200 });
+        }
 
+        await resumeModel.findByIdAndDelete(_id);
+          
         return NextResponse.json({
             success: true,
             message: "resume is deleted",

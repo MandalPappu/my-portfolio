@@ -1,14 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConfig";
 import aboutModel from "@/models/about.model";
 
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE() {
     await dbConnect();
     try {
-        const { aboutData } = await req.json()
-        const about = await aboutModel.findById(aboutData._id)
-        await aboutModel.deleteOne(about.aboutData)
+
+        await aboutModel.deleteOne()
 
         return NextResponse.json({
             success: true,
