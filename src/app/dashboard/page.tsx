@@ -54,12 +54,12 @@ const page = () => {
                 <DropdownMenuTrigger>
                   <FaRegBell size={25} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-slate-950">
-                  <DropdownMenuLabel className="text-white">
+                <DropdownMenuContent className="bg-slate-400 rounded-xl border-none ">
+                  <DropdownMenuLabel className="text-red-950">
                     Messages
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="bg-slate-950 ">
+                  <DropdownMenuItem className="bg-slate-400 ">
                     <Messages />
                   </DropdownMenuItem>
                 </DropdownMenuContent>

@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConfig";
 import visitorModel from "@/models/contact.model";
 
-export async function DELETE(req: NextRequest) {
+export async function POST(req: NextRequest) {
     await dbConnect();
     try {
-        const visitorMessageItem = await req.json()
-        await visitorModel.deleteOne(visitorMessageItem._id)
+        const {id} = await req.json()
+        await visitorModel.findByIdAndDelete({_id:id})
 
         return NextResponse.json({
             success: true,

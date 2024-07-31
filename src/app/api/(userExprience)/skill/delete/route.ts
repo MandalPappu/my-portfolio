@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConfig";
 import skillModel from "@/models/skills.model";
 
-export async function DELETE(req:NextRequest) {
+export async function POST(req:NextRequest) {
     await dbConnect();
     try {
-        const {data} =await req.json()
-        await skillModel.deleteOne(data._id)
-
+        const {id} =await req.json()
+        const res = await skillModel.findByIdAndDelete({_id:id})
+        console.log(res);
+        
         return NextResponse.json({
             success: true,
             message: "deleted",

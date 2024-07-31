@@ -19,13 +19,14 @@ const Skills = () => {
     {_id:"", skillImage:"", skillName:""}
   ]);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState("");
+  const [skillId, setSkillId] = useState<string | null | undefined>("");
+  const [hideSkillItem, setHideSkillItem] = useState(false);
 
     const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get("/api/skill/get")
-      console.log(res.data.allSkills);
+      console.log('skills array:', res.data.allSkills);
       setData(res.data.allSkills);
       setLoading(false);
     } catch (error:any) {
@@ -39,26 +40,27 @@ const Skills = () => {
     fetchData();
   }, []);
 
-  console.log("div id:", id);
+  console.log("div id:", {skillId});
   
-  // const deleteAboutData = async () => {
+  const deleteSkill = async () => {
+          await axios
+            .post("/api/skill/delete", {id:skillId})
+            .then((res) =>
+              toast.success(res.data.message, {
+                position: "top-center",
+                autoClose: 2000,
+              })
+            )
+            .catch((err) =>
+              toast.error(err.response.data.message, {
+                position: "top-center",
+                autoClose: 2000,
+              })
+    );
+    setHideSkillItem(true);
+  };
+  
 
-  //         await axios
-  //           .delete("/api/skill/delete", {data})
-  //           .then((res) =>
-  //             toast.success(res.data.message, {
-  //               position: "top-center",
-  //               autoClose: 2000,
-  //             })
-  //           )
-  //           .catch((err) =>
-  //             toast.error(err.response.data.message, {
-  //               position: "top-center",
-  //               autoClose: 2000,
-  //             })
-  //           );
-  //       };
-  
   return loading ? (
     <h1 className="text-center text-3xl text-slate-400">
       Skills are loading...
@@ -68,12 +70,16 @@ const Skills = () => {
       <h1 className="text-3xl font-bold text-center mt-20">Skills</h1>
       <div className="w-full md:mx-auto lg:mx-auto flex justify-center flex-wrap items-center mt-7 px-5">
         {data
-          ? data.map((skill, _id) => (
-              <AlertDialog open={false}>
+          && data.map((skill) => (
+              <AlertDialog>
                 <AlertDialogTrigger>
                   <div
-                  key={_id}
-                    className="bg-slate-800/65 rounded-xl w-28 md:w-36 text-center flex justify-center items-center flex-col m-4"
+                  id={skill?._id}
+                  key={skill?._id}
+                  onClick={(e) =>
+                    setSkillId(e.currentTarget.getAttribute("id"))
+                  }
+                  className={`bg-slate-800/65 rounded-xl w-28 md:w-36 text-center flex justify-center items-center flex-col m-4`}
                   >
                     <img
                       src={skill.skillImage ? skill.skillImage : ""}
@@ -91,18 +97,18 @@ const Skills = () => {
                       Are you absolutely sure?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
+                      Do You Want To Delete?
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
+                    <AlertDialogAction onClick={deleteSkill}>Delete</AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
-              </AlertDialog>
-            ))
-          : "Loading..."}
+            </AlertDialog>
+            
+            )) 
+            }
       </div>
     </div>
   );

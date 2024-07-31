@@ -1,15 +1,32 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import moment from "moment";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "react-toastify";
+
 
 interface ImessageData {
   _id: string;
   visitorName: string;
   visitorEmail: string;
   visitorMessage: string;
+  createdAt: string;
 }
 
 const Messages:React.FC = () => {
   const [data, setData] = useState<ImessageData[] | undefined>([]);
+  const [messageId, setMessageId] = useState<string | null | undefined>("");
 
   
   const dataFetch = useCallback(async () => {
@@ -19,20 +36,66 @@ const Messages:React.FC = () => {
   }, []);
   useEffect(() => {
     dataFetch();
-  },[])
+  }, []);
+
+    const deleteMessage = async () => {
+      await axios
+        .post("/api/visitorMessage/delete", { id: messageId })
+        .then((res) =>
+          toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+          })
+        )
+        .catch((err) =>
+          toast.error(err.response.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+          })
+        );
+    };
   
 
     return (
-      <div className="inline-block bg-slate-950 hover:bg-slate-900">
-        <div className="flex flex-col gap-2 h-40 overflow-y-scroll">
+      <div className="inline-block bg-slate-400 hover:bg-slate-900">
+        <div className="flex flex-col gap-2 h-40 overflow-y-scroll bg-slate-400">
           {data
-            ? data.map((item, _id) => (
-                <div key={_id} className="bg-zinc-500 inline-block px-4 rounded-md text-black font-medium">
-                  <div className="flex justify-between gap-1 ">
-                    <h1>{item.visitorName}</h1>
-                    <h2>{item.visitorEmail}</h2>
+            ? data.map((item) => (
+              <div
+                id={item?._id}
+                key={item?._id}
+                onClick={(e)=>setMessageId(e.currentTarget.getAttribute("id"))}
+                  className="w-80 bg-emerald-400 relative rounded-xl inline-block px-4 text-black font-medium"
+                >
+                  <div className="flex justify-between gap-1">
+                    <h1 className="text-xs">{item?.visitorName}</h1>
+                    <h2 className="text-xs">{item?.visitorEmail}</h2>
+                    <p className="text-xs">
+                      {moment(item?.createdAt).fromNow()}
+                    </p>
+                    <h3 className="my-2">
+                      <AlertDialog>
+                        <AlertDialogTrigger>
+                          <RiDeleteBin6Fill size={20}/>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you absolutely sure?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Do You Want To Delete Message?
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={deleteMessage}>Delete</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </h3>
                   </div>
-                <p>message: {item.visitorMessage }</p>
+                  <p className="text-xs">message: {item?.visitorMessage}</p>
                 </div>
               ))
             : "<h1>Loading...</h1>"}
