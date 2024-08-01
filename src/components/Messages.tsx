@@ -57,15 +57,15 @@ const Messages:React.FC = () => {
   
 
     return (
-      <div className="inline-block bg-slate-400 hover:bg-slate-900">
-        <div className="flex flex-col gap-2 h-40 overflow-y-scroll bg-slate-400">
+      <div className="inline-block bg-transparent">
+        <div className="w-[40rem] flex flex-col gap-2 h-40 overflow-y-scroll">
           {data
             ? data.map((item) => (
               <div
                 id={item?._id}
                 key={item?._id}
                 onClick={(e)=>setMessageId(e.currentTarget.getAttribute("id"))}
-                  className="w-80 bg-emerald-400 relative rounded-xl inline-block px-4 text-black font-medium"
+                  className="w-96 bg-slate-800 relative rounded-xl inline-block px-4 font-medium"
                 >
                   <div className="flex justify-between gap-1">
                     <h1 className="text-xs">{item?.visitorName}</h1>
@@ -76,7 +76,7 @@ const Messages:React.FC = () => {
                     <h3 className="my-2">
                       <AlertDialog>
                         <AlertDialogTrigger>
-                          <RiDeleteBin6Fill size={20}/>
+                          <RiDeleteBin6Fill size={20} color="red"/>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
@@ -95,13 +95,15 @@ const Messages:React.FC = () => {
                       </AlertDialog>
                     </h3>
                   </div>
-                  <p className="text-xs">message: {item?.visitorMessage}</p>
+                  <p className="text-[15px]">message: {item?.visitorMessage}</p>
                 </div>
               ))
-            : "<h1>Loading...</h1>"}
+            : "Loading..."}
         </div>
       </div>
     );
 };
 
 export default Messages;
+
+

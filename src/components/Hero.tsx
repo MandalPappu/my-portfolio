@@ -2,7 +2,26 @@ import React, { MouseEvent, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BackgroundGradient } from "./ui/background-gradient";
+import { FlipWords } from "./ui/flip-words";
+import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 
+
+const words = ["Mern", "ReactJS", "NextJS", "NodeJS", "MongoDB", "PostgreSQL", "ExpressJS", "DevOps", "Blockchain"];
+const typeWriterWords = [
+  {
+    text: "Full",
+    className: "text-slate-400 dark:text-slate-400 font-semibold text-2xl",
+  },
+  {
+    text: "Stack",
+    className: "text-slate-400 dark:text-slate-400 font-semibold text-2xl",
+  },
+  {
+    text: "Developer.",
+    className: "text-orange-500 dark:text-orange-500 font-bold text-4xl",
+  },
+];
 
 const Hero = () => {
 
@@ -50,15 +69,18 @@ const Hero = () => {
   }
 
   return (
-    <div className="w-full flex sm:flex-row flex-col-reverse justify-between  sm:justify-between items-center sm:px-28 ">
-      <div className="w-full sm:mt-20 text-center sm:text-start">
+    <div className="w-full flex sm:flex-row flex-col-reverse justify-between items-center sm:px-8 lg:px-28 ">
+      <div className="w-full sm:w-1/2 sm:mt-20 text-center sm:text-start">
         <p className="text-3xl md:text-4xl my-4">Hi,</p>
         <h2 className="text-2xl sm:text-xl md:text-3xl lg:text-6xl my-4 ">
           I'm Pappu Mandal
         </h2>
-        <h1 className="text-4xl my-4 font-medium">
-          Full Stack <span className="font-bold text-rose-600">Developer</span>
+        <h1 className="text-4xl my-4">
+            <TypewriterEffectSmooth words={typeWriterWords} className="ml-20 sm:ml-0 md:ml-0 lg:ml-0"/>
         </h1>
+        <h2>
+          <FlipWords words={words} className="text-slate-300 text-2xl my-2" />
+        </h2>
         <div>
           <button className="px-3 py-1 font-semibold text-2xl bg-[#06D001] rounded-xl text-black my-4">
             <Link
@@ -70,17 +92,24 @@ const Hero = () => {
               resume
             </Link>
           </button>
-          <button onClick={deleteResume} className="bg-rose-700 px-4 py-2 ml-4 rounded-xl font-semibold text-xl text-black">
+          <button
+            onClick={deleteResume}
+            className="bg-rose-700 px-4 py-2 ml-4 rounded-xl font-semibold text-xl text-black"
+          >
             Delete
           </button>
         </div>
       </div>
-      <div className=" rounded-full flex justify-center items-center ">
-        <img
-          src="../../profile.jpg"
-          alt="profile"
-          className="w-80 h-80 rounded-full sm:h-60 lg:h-80 object-fill sm:rounded-xl mt-5 ml-6 lg:mr-[17rem] lg:mt-36  sm:ml-0 outline-none"
-        />
+      <div className="w-full sm:w-1/2 flex justify-center sm:items-center py-4 ">
+        <div className="w-80 h-80 md:h-96 flex justify-center items-center sm:pt-9">
+          <BackgroundGradient className="dark:bg-zinc-900 rounded-2xl">
+            <img
+              src={`/profile.jpg`}
+              alt="skill-image"
+              className="w-80 h-80 rounded-3xl sm:h-60 lg:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
+            />
+          </BackgroundGradient>
+        </div>
       </div>
     </div>
   );

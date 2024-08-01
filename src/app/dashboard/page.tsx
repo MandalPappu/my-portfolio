@@ -49,22 +49,6 @@ const page = () => {
           <h1 className="md:text-3xl text-2xl font-bold">Pappu</h1>
           <IoMenu size={30} onClick={showMenu} className="sm:hidden" />
           <div className="sm:flex items-center gap-4 hidden">
-            <div className="relative">
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <FaRegBell size={25} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-slate-400 rounded-xl border-none ">
-                  <DropdownMenuLabel className="text-red-950">
-                    Messages
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem className="bg-slate-400 ">
-                    <Messages />
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
             <button
               onClick={logoutHandler}
               className="text-xl font-bold rounded-2xl px-4 hover:bg-slate-500 hover:text-black"
@@ -90,6 +74,10 @@ const page = () => {
               </div>
             </div>
           </div>
+        </div>
+        {/* // message display// */}
+        <div className="w-96 mx-auto mt-20 ">
+          <Messages />
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Compare } from "@/components/ui/compare";
 
 const  About = () => {
   const [data, setData] = useState({
@@ -65,16 +66,19 @@ const  About = () => {
   ) : (
     <div className="w-full my-4 md:my-0 sm:px-0 md:pr-20">
       <h1 className="text-3xl text-center font-bold mt-24 mb-6">About</h1>
-      <div className=" sm:flex sm:justify-between sm:items-center sm:gap-4 relative">
-        <img
-          src="../../boyicon.webp"
-          alt="about icon"
-          className="hidden md:block w-[40rem] h-96"
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-1 relative">
+        <Compare
+          firstImage="https://assets.aceternity.com/code-problem.png"
+          secondImage="https://assets.aceternity.com/code-solution.png"
+          firstImageClassName="object-cover object-left-top"
+          secondImageClassname="object-cover object-left-top"
+          className="h-[250px] w-[300px] md:h-[400px] md:w-[500px] sm:ml-10 md:ml-10 lg:ml-24"
+          slideMode="hover"
         />
         {data ? (
           <p
             key={data?._id}
-            className="w-[70%] text-3xl leading-relaxed mx-auto"
+            className="w-full px-8 md:w-[40rem] text-2xl leading-relaxed mx-auto"
           >
             {data?.aboutData}
             <span>
@@ -104,7 +108,9 @@ const  About = () => {
             </span>
           </p>
         ) : (
-          <h1 className="w-full  text-center font-bold text-xl">Not Found! please try again...</h1>
+          <h1 className="w-full  text-center font-bold text-xl">
+            Not Found! please try again...
+          </h1>
         )}
       </div>
     </div>
