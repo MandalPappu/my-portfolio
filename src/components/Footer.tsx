@@ -7,7 +7,7 @@ import { VscGithubInverted } from "react-icons/vsc";
 
 const Footer = () => {
   return (
-    <div className="py-6">
+    <div className="py-6 mt-8">
       <div className="flex justify-center items-center gap-6 text-center">
         <Link href="mandalpappu512000@gmail.com" target="_blank">
           <MdOutlineMail size={40} />

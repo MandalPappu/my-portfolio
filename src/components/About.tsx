@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Compare } from "@/components/ui/compare";
+import { TextGenerateEffect } from "./ui/text-generate-effect";
+
 
 const  About = () => {
   const [data, setData] = useState({
@@ -23,7 +25,6 @@ const  About = () => {
   });
   const [showDeleteFn, setShowDeleteFn] = useState(false)
   const [loading, setLoading] = useState(false);
-  
 
 
   const fetchData = useCallback(async() => {
@@ -78,9 +79,14 @@ const  About = () => {
         {data ? (
           <p
             key={data?._id}
-            className="w-full px-8 md:w-[40rem] text-2xl leading-relaxed mx-auto"
+            className="w-full px-8 md:w-[40rem] text-2xl leading-relaxed mx-auto text-slate-300"
           >
-            {data?.aboutData}
+            <TextGenerateEffect
+              words={data?.aboutData}
+              duration={2}
+              filter={false}
+              className="text-slate-300"
+            />
             <span>
               <AlertDialog>
                 <AlertDialogTrigger asChild>

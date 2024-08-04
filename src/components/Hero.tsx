@@ -76,13 +76,16 @@ const Hero = () => {
           I'm Pappu Mandal
         </h2>
         <h1 className="text-4xl my-4">
-            <TypewriterEffectSmooth words={typeWriterWords} className="ml-20 sm:ml-0 md:ml-0 lg:ml-0"/>
+          <TypewriterEffectSmooth
+            words={typeWriterWords}
+            className="ml-20 sm:ml-0 md:ml-0 lg:ml-0"
+          />
         </h1>
         <h2>
           <FlipWords words={words} className="text-slate-300 text-2xl my-2" />
         </h2>
         <div>
-          <button className="px-3 py-1 font-semibold text-2xl bg-[#06D001] rounded-xl text-black my-4">
+          <button className="px-3 py-1 font-semibold text-2xl bg-[#06D001] rounded-xl text-black my-4 bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800  text-center me-2 mb-2">
             <Link
               href={data?.resume ? data.resume : "https://www.404notfound.com"}
               download={data?.resume}
