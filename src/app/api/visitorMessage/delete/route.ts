@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConfig";
+import dbConnect from "@/helpers/dbConfig";
 import visitorModel from "@/models/contact.model";
 
 export async function POST(req: NextRequest) {

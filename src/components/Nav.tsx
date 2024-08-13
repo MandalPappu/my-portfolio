@@ -1,11 +1,17 @@
-'use client'
+"use client";
 import Link from "next/link";
 import React from "react";
+import { useAppSelector } from "@/lib/hooks";
+import { RootState } from "@/lib/store";
+import Logout from "./Logout";
+
 
 function Nav() {
+  const  userId  = useAppSelector((state:RootState) => state.auth.userId);
+   
   return (
-    <nav className="w-full mt-10 text-center hidden sm:block">
-      <div className=" flex justify-center items-center gap-8 text-slate-400">
+    <div className="w-full mt-10 text-center hidden sm:block">
+      <nav className=" flex justify-center items-center gap-8 text-slate-400">
         <div>
           <Link
             href="#About"
@@ -38,8 +44,9 @@ function Nav() {
             Contact
           </Link>
         </div>
-      </div>
-    </nav>
+        {userId ? <Logout classname="px-4 py-2 hover:bg-slate-400 hover:text-black text-2xl font-bold rounded-3xl"/> : ""}
+      </nav>
+    </div>
   );
 }
 

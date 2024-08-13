@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConfig";
+import dbConnect from "@/helpers/dbConfig";
 import visitorModel from "@/models/contact.model";
+import { sendingEmail } from "@/helpers/sendingEmail";
 
 export async function POST(req: NextRequest) {
     await dbConnect();
@@ -18,6 +19,8 @@ export async function POST(req: NextRequest) {
             visitorEmail,
             visitorMessage
         })
+        await sendingEmail({ visitorEmail, visitorMessage, visitorName })
+        
         if (visitorWords) {
             return NextResponse.json({
                 success: true,

@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConfig";
+import dbConnect from "@/helpers/dbConfig";
 import resumeModel from "@/models/resume.model";
 
 export async function GET() {
     await dbConnect();
     try {
         const resume = await resumeModel.findOne()
-        console.log(resume);
         
         return NextResponse.json({
             data:resume

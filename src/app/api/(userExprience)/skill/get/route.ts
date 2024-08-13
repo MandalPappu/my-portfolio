@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConfig";
+import dbConnect from "@/helpers/dbConfig";
 import skillModel from "@/models/skills.model";
 
 
 export async function GET() {
     await dbConnect();
     try {
-        const allSkills = await skillModel.find({})
+        const allSkills = await skillModel.find()
         if (allSkills) {
             return NextResponse.json({
                 success: true,

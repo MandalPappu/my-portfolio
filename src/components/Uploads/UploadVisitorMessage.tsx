@@ -1,8 +1,10 @@
+'use client'
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+
 
 const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
   ssr: false,
@@ -393,27 +395,34 @@ const sampleArcs = [
   },
 ];
 
-const Contact = () => {
-  const [data, setData] = useState({
+export interface IVisitorDetails {
+  visitorName: string;
+  visitorEmail: string;
+  visitorMessage: string;
+}
+const UploadVisitorMessage = () => {
+  const [data, setData] = useState<IVisitorDetails>({
     visitorName: "",
     visitorEmail: "",
     visitorMessage: "",
   });
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false)
-  const onMessageSend = async () => {
-    setLoading(true)
-    const res = await axios.post("/api/visitorMessage/add", data)
+  const onMessageSend = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const res = await axios
+      .post("/api/visitorMessage/add", data)
       .then((res) => res.data.message)
       .catch((err) => err.response.data.message);
     setData({
       visitorName: "",
       visitorEmail: "",
-      visitorMessage: ""
-    })
+      visitorMessage: "",
+    });
     setLoading(false);
-    toast(res,{position:"top-center", autoClose:2000})
-  }
+    toast(res, { position: "top-center", autoClose: 2000 });
+  };
 
   useEffect(() => {
     if (data.visitorName.length > 0 && data.visitorEmail.length > 0 && data.visitorMessage.length > 0) {
@@ -422,14 +431,15 @@ const Contact = () => {
   },[data])
   
   return (
+    
     <div className="w-full h-full text-center">
       <h1 className="text-center font-bold text-3xl md:text-4xl text-slate-400 mt-12 mb-20">
         Contact
       </h1>
       <div className="w-full relative flex justify-center md:justify-between md:gap-4 items-center">
-        <div className="w-full md:w-[60%] lg:ml-20 ml-4 hidden md:block">
+        <div className="w-full md:w-[90%] lg:ml-20 ml-4 hidden md:block">
           <div className="flex flex-row items-center justify-center py-20 md:h-screen  dark:bg-black relative w-full">
-            <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
+            <div className="max-w-7xl hidden sm:hidden md:block mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
               <motion.div
                 initial={{
                   opacity: 0,
@@ -453,8 +463,8 @@ const Contact = () => {
                 </p>
               </motion.div>
               <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-black z-40" />
-              <div className="absolute w-full md:w-[30rem] -bottom-20 h- md:h-full z-10">
-                <World data={sampleArcs} globeConfig={globeConfig}  />
+              <div className="absolute w-full md:w-[33rem] -bottom-20 sm:w-[20rem] md:h-full z-10">
+                <World data={sampleArcs} globeConfig={globeConfig}/>
               </div>
             </div>
           </div>
@@ -527,4 +537,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default UploadVisitorMessage;

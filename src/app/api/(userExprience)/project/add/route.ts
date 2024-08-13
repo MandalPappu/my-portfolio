@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConfig";
-import uploadToCloudinary from "@/utils/cloudinary";
+import dbConnect from "@/helpers/dbConfig";
+import uploadToCloudinary from "@/helpers/cloudinary";
 import projectModel from "@/models/projects.model";
-
 
 
 export async function POST(req: NextRequest) {
@@ -11,7 +10,7 @@ export async function POST(req: NextRequest) {
         const formData = await req.formData();
         const projectImage = formData.get("projectImage") as File
         const projectName = formData.get("projectName")
-        const weblink = formData.get("weblink")
+        const projectLink = formData.get("projectLink")
         if (!projectName || !projectImage) {
             return NextResponse.json({
                 success: false,
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
         const projectData = await projectModel.create({
             projectName,
             projectImage: projectImageUrl,
-            weblink: weblink ? weblink : null
+            weblink: projectLink
         })
         if (projectData) {
             return NextResponse.json({

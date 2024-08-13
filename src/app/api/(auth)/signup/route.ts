@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user.model";
-import dbConnect from "@/utils/dbConfig";
+import dbConnect from "@/helpers/dbConfig";
 import bcrypt from "bcryptjs"
 
 
@@ -8,23 +8,23 @@ export async function POST(req: NextRequest) {
     await dbConnect();
     try {
         const reqbody = await req.json();
-        const { email, password, isAdmin } = reqbody;
-        if ( !email || !password || !isAdmin) {
+        const { email, password } = reqbody;
+        if (!email || !password) {
             return NextResponse.json({
                 message: "all fields are required"
             })
         }
-        const user = await User.findOne({email})
+        const user = await User.findOne({ email: "one@gmail.com" })
 
         if (user) {
             return NextResponse.json({
                 success: false,
-                message: "user already exists"
+                message: "Admin already exists"
             }, { status: 401 })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        await User.create({ email, password: hashedPassword, isAdmin })
+        await User.create({ email, password: hashedPassword })
         
         return NextResponse.json({
             success: true,

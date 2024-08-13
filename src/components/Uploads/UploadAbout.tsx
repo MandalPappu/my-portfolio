@@ -52,7 +52,7 @@ const UploadAbout = () => {
         />
         <button
           onClick={onSubmitHandler}
-          className={`my-2 hover:opacity-50 transition-colors sm:w-28 py-2 px-4 font-semibold text-base text-black rounded-xl cursor-pointer bg-green-500 ${
+          className={`my-2 hover:opacity-50 flex justify-center items-center gap-1 transition-colors sm:w-32 py-2 px-4 font-semibold text-base text-black rounded-xl cursor-pointer bg-green-500 ${
             disabled ? "opacity-30" : ""
           } `}
         >
@@ -61,7 +61,7 @@ const UploadAbout = () => {
               <div role="status">
                 <svg
                   aria-hidden="true"
-                  className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
+                  className="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

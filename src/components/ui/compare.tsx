@@ -208,7 +208,7 @@ export const Compare = ({
             >
               <img
                 alt="first image"
-                src={firstImage}
+                src={`${firstImage}`}
                 className={cn(
                   "absolute inset-0  z-20 rounded-2xl flex-shrink-0 w-full h-full select-none",
                   firstImageClassName
@@ -228,7 +228,7 @@ export const Compare = ({
               secondImageClassname
             )}
             alt="second image"
-            src={secondImage}
+            src={`${secondImage}`}
             draggable={false}
           />
         ) : null}

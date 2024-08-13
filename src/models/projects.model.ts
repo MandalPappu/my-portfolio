@@ -4,12 +4,20 @@ import mongoose, { Schema, Document } from "mongoose";
 interface project extends Document {
     projectName: string
     projectImage: string
-    weblink: string
+    weblink?: string
 }
 const projectSchema = new Schema({
-    projectName: String,
-    projectImage: String,
-    weblink: String
+    projectName: {
+        type: String,
+        required: true
+    },
+    projectImage: {
+        type: String,
+        required:true
+    },
+    weblink: {
+        type: String
+    }
 
 });
 

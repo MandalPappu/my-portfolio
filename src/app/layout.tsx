@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ToastProvider from "@/utils/ToastProvider";
-// import ToastProvider from "@/utils/ToastProvider";
+import ToastProvider from "@/helpers/ToastProvider";
+import StoreProvider from "./storeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-title: "my portfolio",
+  title: "my portfolio",
   description: "this is personal portfolio of describe my skills.",
   icons: {
-    icon: "../myfav.webp", 
+    icon: "../myfav.webp",
   },
 };
 
@@ -21,8 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/* <head>
+        <title>my portfolio</title>
+        <link rel="shortcut icon" href="../myfav.webp" type="image/x-icon" />
+      </head> */}
       <body className={inter.className}>
-        <ToastProvider>{children}</ToastProvider>
+        <StoreProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </StoreProvider>
       </body>
     </html>
   );

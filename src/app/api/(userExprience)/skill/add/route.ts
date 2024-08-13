@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConfig";
-import uploadToCloudinary from "@/utils/cloudinary";
+import dbConnect from "@/helpers/dbConfig";
+import uploadToCloudinary from "@/helpers/cloudinary";
 import skillModel from "@/models/skills.model";
 
 

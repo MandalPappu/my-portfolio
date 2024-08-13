@@ -25,20 +25,25 @@ interface ImessageData {
 }
 
 const Messages:React.FC = () => {
-  const [data, setData] = useState<ImessageData[] | undefined>([]);
+  const [data, setData] = useState<ImessageData[] | []>([{
+    _id: "",
+  visitorName: "",
+  visitorEmail: "",
+  visitorMessage: "",
+  createdAt: ""
+  }]);
   const [messageId, setMessageId] = useState<string | null | undefined>("");
 
   
   const dataFetch = useCallback(async () => {
     const res = await axios.get("/api/visitorMessage/get");
-    console.log(res.data);
     setData(res.data.data);
   }, []);
   useEffect(() => {
     dataFetch();
   }, []);
 
-    const deleteMessage = async () => {
+    const deleteMessage = async ({ message }: { message: ImessageData }) => {
       await axios
         .post("/api/visitorMessage/delete", { id: messageId })
         .then((res) =>
@@ -53,25 +58,27 @@ const Messages:React.FC = () => {
             autoClose: 2000,
           })
         );
+      const newdata = data.filter((messageItem) =>( messageItem !== message));
+      setData(newdata);
     };
   
 
     return (
-      <div className="inline-block bg-transparent">
-        <div className="w-[40rem] flex flex-col gap-2 h-40 overflow-y-scroll">
+      <div>
+        <div className="w-96 mx-auto flex flex-col gap-2 h-60 overflow-y-scroll">
           {data
-            ? data.map((item) => (
+            ? data.map((message, index) => (
               <div
-                id={item?._id}
-                key={item?._id}
+                id={message?._id}
+                key={index}
                 onClick={(e)=>setMessageId(e.currentTarget.getAttribute("id"))}
                   className="w-96 bg-slate-800 relative rounded-xl inline-block px-4 font-medium"
                 >
                   <div className="flex justify-between gap-1">
-                    <h1 className="text-xs">{item?.visitorName}</h1>
-                    <h2 className="text-xs">{item?.visitorEmail}</h2>
+                    <h1 className="text-xs">{message?.visitorName}</h1>
+                    <h2 className="text-xs">{message?.visitorEmail}</h2>
                     <p className="text-xs">
-                      {moment(item?.createdAt).fromNow()}
+                      {moment(message?.createdAt).fromNow()}
                     </p>
                     <h3 className="my-2">
                       <AlertDialog>
@@ -89,13 +96,13 @@ const Messages:React.FC = () => {
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={deleteMessage}>Delete</AlertDialogAction>
+                            <AlertDialogAction onClick={()=>deleteMessage({message})}>Delete</AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
                     </h3>
                   </div>
-                  <p className="text-[15px]">message: {item?.visitorMessage}</p>
+                  <p className="text-[15px]">message: {message?.visitorMessage}</p>
                 </div>
               ))
             : "Loading..."}
