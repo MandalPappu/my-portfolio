@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import resumeModel from "@/models/resume.model";
-
+import { skillFolder } from "../../skill/add/route";
+import { deleteOnCloudinary } from "@/helpers/cloudinary";
 
 export async function DELETE(req:NextRequest) {
     await dbConnect();
@@ -15,12 +16,27 @@ export async function DELETE(req:NextRequest) {
             }, { status: 200 });
         }
 
-        await resumeModel.findByIdAndDelete(_id);
+        const res = await resumeModel.findByIdAndDelete(_id);
+        console.log(res);
+        
+        const ResumeImg = res?.resume?.split("/");
+        const img = ResumeImg?.pop();
+        const imgName = img?.split(".")[0]
+        const imgFile =`${skillFolder}/${imgName}`
           
-        return NextResponse.json({
-            success: true,
-            message: "resume is deleted",
-        }, { status: 200 })
+        const deleteRes = await deleteOnCloudinary(imgFile);
+        
+        if (deleteRes.result === "ok") {
+            return NextResponse.json({
+                success: true,
+                message: "resume is deleted",
+            }, { status: 200 })
+        } else {
+            return NextResponse.json({
+                success: false,
+                message: "deleting error",
+            }, { status: 200 })
+}
 
     } catch (error) {
         console.log("error in delete resume", error);

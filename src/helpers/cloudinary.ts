@@ -1,12 +1,13 @@
 import { v2 as cloudinary } from "cloudinary";
 
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const uploadToCloudinary = async (file: File, folder: string) => {
+const uploadOnCloudinary = async (file: File, folder: string) => {
     const buffer = await file.arrayBuffer();
     const bytes = Buffer.from(buffer)
 
@@ -22,4 +23,10 @@ const uploadToCloudinary = async (file: File, folder: string) => {
         }).end(bytes)
     });
 };
-export default uploadToCloudinary;
+
+
+export default uploadOnCloudinary;
+
+export async function deleteOnCloudinary(file:string) {
+    return await cloudinary.uploader.destroy(file, (result)=> result)
+}

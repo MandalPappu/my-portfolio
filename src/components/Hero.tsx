@@ -14,7 +14,9 @@ import { FlipWords } from "./ui/flip-words";
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
-import { useRouter } from "next/navigation";
+import CircleSpinner from "./CircleSpinner";
+import { Loader2 } from "lucide-react";
+
 
 const words = [
   "Mern",
@@ -47,8 +49,9 @@ const Hero = () => {
     resume: "",
     _id: "",
   });
+  const [processing, setProcessing] = useState(false)
   const userId = useAppSelector((state: RootState) => state.auth.userId);
-  const router = useRouter();
+
   const fetchData = useCallback(async () => {
     try {
       const res = await axios.get("/api/resume/get");
@@ -65,6 +68,7 @@ const Hero = () => {
 
   const deleteResume = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setProcessing(true);
     try {
       await axios
         .delete("/api/resume/delete/", { data })
@@ -79,9 +83,15 @@ const Hero = () => {
             position: "top-center",
             autoClose: 2000,
           })
-        );
+      );
+      setData({
+        resume: "",
+        _id: "",
+      });
+      setProcessing(false)
     } catch (error: any) {
       toast(error.response.data.message);
+      setProcessing(false)
     }
   };
 
@@ -93,16 +103,20 @@ const Hero = () => {
           <h2 className="text-2xl sm:text-xl md:text-3xl lg:text-6xl my-4 ">
             I'm Pappu Mandal
           </h2>
-          <h1 className="text-4xl my-4">
+          <h1 className="text-4xl my-4 flex justify-center sm:block">
             <TypewriterEffectSmooth
               words={typeWriterWords}
-              className="ml-20 sm:ml-0 md:ml-0 lg:ml-0"
+              className="sm:ml-0 md:ml-0 lg:ml-0"
             />
           </h1>
           <h2>
             <FlipWords words={words} className="text-slate-300 text-2xl my-2" />
           </h2>
-          <div className="w-full flex gap-2 items-center justify-center sm:justify-normal">
+          <div
+            className={`${
+              data?.resume ? "block" : "hidden"
+            } w-full flex gap-2 items-center justify-center sm:justify-normal`}
+          >
             <Link
               href={data?.resume ? data.resume : "not found"}
               download={true}
@@ -118,7 +132,13 @@ const Hero = () => {
                 userId ? "block" : "hidden"
               } py-1 px-3 ml-4 rounded-xl font-semibold text-black`}
             >
-              Delete resume
+              {processing
+                ? <div className="flex items-center gap-2">
+                  <Loader2 size={15} className="animate-spin" />
+                  <h2>deleting...</h2>
+                </div> 
+                : "Delete resume"}
+
             </button>
           </div>
         </div>
@@ -135,7 +155,7 @@ const Hero = () => {
           <img
             src="../../profile.jpg"
             alt="profile-image"
-            className="w-80 h-80 md:hidden rounded-full sm:h-60 lg:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
+            className="w-52 h-52 md:hidden rounded-full sm:h-60 lg:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
           />
         </div>
       </div>

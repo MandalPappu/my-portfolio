@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import resumeModel from "@/models/resume.model";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
+    revalidatePath("/")
     await dbConnect();
     try {
         const resume = await resumeModel.findOne()

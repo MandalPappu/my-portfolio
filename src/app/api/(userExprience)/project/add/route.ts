@@ -1,35 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
-import uploadToCloudinary from "@/helpers/cloudinary";
 import projectModel from "@/models/projects.model";
+import uploadOnCloudinary from "@/helpers/cloudinary";
 
+export const projectFolder = "my-portfolio/myworkfolio-project-images"
 
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
         const formData = await req.formData();
-        const projectImage = formData.get("projectImage") as File
-        const projectName = formData.get("projectName")
-        const projectLink = formData.get("projectLink")
-        if (!projectName || !projectImage) {
+        const projectName = formData.get("projectName") as string;
+        const projectImage: FileList | null = formData.getAll("projectImage") as unknown as FileList;
+        const projectLink = formData.get("projectLink");
+
+        console.log("projectImage: ", projectImage);
+        if (!projectName || projectImage?.length < 0) {
             return NextResponse.json({
                 success: false,
                 message: "all fields are required"
             }, { status: 401 })
-        }
-        const projectImages: any = await uploadToCloudinary(projectImage, "next-galleryImage");
-        const projectImageUrl = projectImages.url
+        } 
+        
 
-        if (!projectImageUrl) {
+        const imgArray = []
+        for (let img = 0; img < projectImage.length; img++) {
+            const res: any = await uploadOnCloudinary(projectImage[img], "my-portfolio/myworkfolio-project-images")
+            imgArray.push(res.url)
+        }
+console.log(imgArray);
+
+        if (imgArray.length <= 0) {
             return NextResponse.json({
                 success: false,
                 message: "image file not found"
             }, { status: 401 })
         }
         const projectData = await projectModel.create({
-            projectName,
-            projectImage: projectImageUrl,
-            weblink: projectLink
+            projectName: projectName,
+            projectImages: imgArray,
+            weblink: projectLink || ""
         })
         if (projectData) {
             return NextResponse.json({

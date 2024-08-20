@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
-import uploadToCloudinary from "@/helpers/cloudinary";
+import uploadOnCloudinary from "@/helpers/cloudinary";
 import skillModel from "@/models/skills.model";
 
-
+export const skillFolder = "my-portfolio/myworkfolio-skill-images"
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
                 success: false,
                 message: "all fields are required"
             }, { status: 401 })
-        }
-        const skillImages:any = await uploadToCloudinary(skillImage, "next-galleryImage");
+        };
+        const skillImages:any = await uploadOnCloudinary(skillImage, "my-portfolio/myworkfolio-skill-images");
         
         const skillImageUrl = skillImages.url
 

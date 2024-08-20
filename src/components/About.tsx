@@ -18,6 +18,7 @@ import { Compare } from "@/components/ui/compare";
 import { TextGenerateEffect } from "./ui/text-generate-effect";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
+import CircleSpinner from "./CircleSpinner";
 
 
 interface IAbout{
@@ -29,6 +30,7 @@ const  About = () => {
     {_id:"",
     aboutData:""}
   );
+  const [processing, setProcessing] = useState(false)
   const userId = useAppSelector((state: RootState) => state.auth.userId);
   const [loading, setLoading] = useState(false);
 
@@ -49,7 +51,8 @@ const  About = () => {
       fetchData();
     }, []);
   
-      const deleteAboutData = async () => {
+  const deleteAboutData = async () => {
+    setProcessing(true);
         await axios
           .delete("/api/about/delete/delete-aboutData")
           .then((res) =>
@@ -63,16 +66,20 @@ const  About = () => {
               position: "top-center",
               autoClose: 2000,
             })
-        );
-        setData(null);
+    );
+    
+    setData(null);
+    setProcessing(false)
   };
 
 
   return loading ? (
-    <h1 className="text-center text-3xl ">about is Loading...</h1>
+    <h1 className="text-center text-3xl my-20">
+      about is Loading...
+    </h1>
   ) : (
-    <div className="w-full my-4 md:my-0 sm:px-0 md:pr-20">
-      <h1 className="text-3xl text-center font-bold mt-24 mb-6">About</h1>
+    <div className={`${data ? "block" : "hidden"} w-full my-4 md:my-0 sm:px-0 md:pr-20`}>
+      <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">About</h1>
       <div className="flex flex-col sm:flex-row justify-center items-center gap-1 relative">
         <Compare
           firstImage="https://assets.aceternity.com/code-problem.png"
@@ -82,44 +89,49 @@ const  About = () => {
           className="h-[250px] w-[300px] md:h-[400px] md:w-[500px] sm:ml-10 md:ml-10 lg:ml-24"
           slideMode="hover"
         />
-          { data ?
-            <div
-              key={data?._id}
-              className={`w-full px-8 md:w-[40rem] text-2xl leading-relaxed mx-auto text-slate-300`}
-            >
-              <TextGenerateEffect
-                words={data?.aboutData}
-                duration={2}
-                filter={false}
-                className="text-slate-300"
+        {data ? (
+          <div
+            key={data?._id}
+            className={`w-full px-8 md:w-[40rem] text-2xl leading-relaxed mx-auto text-slate-300`}
+          >
+            <TextGenerateEffect
+              words={data?.aboutData}
+              duration={2}
+              filter={false}
+              className="text-slate-300"
               />
-              <span className={`${userId ? "inline" : "hidden"}`}>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button>
-                      <RiDeleteBin6Fill size={20} color="red" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        Do You Want To Delete?
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={deleteAboutData}>
-                        Delet
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </span>
-            </div> : "Fetching..."
-}    
+              {processing ? <CircleSpinner classname="text-4xl "/> : ""}
+            <span className={`${userId ? "inline" : "hidden"}`}>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button>
+                    <RiDeleteBin6Fill size={20} color="red" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="w-[80%] bg-slate-300 text-black rounded-2xl sm:rounded-2xl mx-auto">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Do You Want To Delete?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="rounded-2xl hover:bg-slate-400">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={deleteAboutData}>
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </span>
+          </div>
+        ) : (
+          "Fetching..."
+        )}
       </div>
     </div>
   );

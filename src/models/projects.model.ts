@@ -3,18 +3,18 @@ import mongoose, { Schema, Document } from "mongoose";
 
 interface project extends Document {
     projectName: string
-    projectImage: string
+    projectImages: Array<string> 
     weblink?: string
 }
-const projectSchema = new Schema({
+const projectSchema:Schema<project> = new Schema({
     projectName: {
         type: String,
         required: true
     },
-    projectImage: {
-        type: String,
-        required:true
-    },
+    projectImages:[
+        {
+            type: String,
+        }],
     weblink: {
         type: String
     }

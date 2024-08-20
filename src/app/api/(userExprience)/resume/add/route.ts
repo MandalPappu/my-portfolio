@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
-import uploadToCloudinary from "@/helpers/cloudinary";
 import resumeModel from "@/models/resume.model";
-
-
+import uploadOnCloudinary from "@/helpers/cloudinary";
+import { skillFolder } from "../../skill/add/route";
 
 
 export async function POST(req: NextRequest) {
@@ -17,7 +16,7 @@ export async function POST(req: NextRequest) {
                 message: "resume is required"
             }, { status: 401 })
         }
-        const myResume: any = await uploadToCloudinary(resume, "next-galleryImage");
+        const myResume: any = await uploadOnCloudinary(resume, skillFolder);
         const myResumeUrl = myResume.url
 
         if (!myResumeUrl) {

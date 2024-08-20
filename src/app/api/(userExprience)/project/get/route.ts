@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import projectModel from "@/models/projects.model";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
+    revalidatePath("/")
     await dbConnect();
     try {
         const allProjects = await projectModel.find({}) 
+        
         if (allProjects) {
             return NextResponse.json({
                 success: true,

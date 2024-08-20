@@ -16,12 +16,12 @@ import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
 import Link from "next/link";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
-import { RxCross2 } from "react-icons/rx";
-
+import CarousalImage from "./CarousalImag";
+import { Loader } from "lucide-react";
 
 interface Iproject {
   _id: string;
-  projectImage: string;
+  projectImages: string[];
   projectName: string;
   weblink: string;
 }
@@ -29,20 +29,21 @@ const Projects = () => {
   const [data, setData] = useState<Iproject[] | []>([
     {
       _id: "",
-      projectImage: "",
+      projectImages: [],
       projectName: "",
       weblink: "",
     },
   ]);
-
   const [Loading, setLoading] = useState(false);
   const [projectId, setProjectId] = useState<string | null | undefined>("");
+  const [processing, setProcessing] = useState(false)
   const userId = useAppSelector((state: RootState) => state.auth.userId);
-
 
   const fetchData = useCallback(async () => {
     setLoading(true);
     const response = await axios.get("/api/project/get");
+    console.log(response.data.allProjects);
+
     setData(response.data.allProjects);
     setLoading(false);
   }, []);
@@ -51,7 +52,8 @@ const Projects = () => {
     fetchData();
   }, []);
 
-  const deleteProject = async ({project}:{project:Iproject}) => {
+  const deleteProject = async ({ project }: { project: Iproject }) => {
+    setProcessing(true);
     await axios
       .post("/api/project/delete", { id: projectId })
       .then((res) =>
@@ -65,19 +67,19 @@ const Projects = () => {
           position: "top-center",
           autoClose: 2000,
         })
-    );
+      );
     const newdata = data.filter((item) => item !== project);
+    setProcessing(false);
     setData(newdata);
   };
 
-
   return Loading ? (
-    <h1 className="text-2xl text-center">
+    <h1 className="text-2xl text-center my-20">
       <span>Project loading...</span>
     </h1>
   ) : (
-    <div>
-      <h1 className="text-center text-3xl font-bold mt-12 mb-6 text-slate-400">
+    <div className={`${data.length > 0 ? "block" : "hidden"}`}>
+      <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
         Projects
       </h1>
       <div className="w-full flex flex-wrap justify-center md:gap-6 lg:gap-10 sm:px-16 lg:px-28">
@@ -87,25 +89,34 @@ const Projects = () => {
               key={index}
               className="object-cover rounded-2xl px-2"
             >
-              <CardBody className="w-[20rem] flex justify-center mx-auto group/card hover:shadow-emerald-500 shadow-2xl dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl p-6  border-[1px] border-slate-700 ">
+              <CardBody className=" group/card hover:shadow-emerald-500 shadow-2xl dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl border-[1px] border-slate-700 ">
                 <div
                   id={project?._id}
                   key={index}
                   onClick={(e) =>
                     setProjectId(e.currentTarget.getAttribute("id"))
                   }
-                  className="flex justify-center items-center flex-col"
+                  className="w-full flex flex-col"
                 >
-                  <CardItem translateZ="100" className="relative mt-20">
-                    <img
-                      src={`${project?.projectImage}`}
-                      className="object-fill w-60  group-hover/card:shadow-xl px-2"
-                      alt="thumbnail of projects"
-                    />
+                  <CardItem translateZ="100" className="w-full relative">
+                    <CarousalImage imgData={project?.projectImages} />
+                    {/* {project?.projectImage &&
+                      project?.projectImage.map((image, index) => (
+                        <img
+                          key={index}
+                          src={`${image}`}
+                          className="object-contain group-hover/card:shadow-xl px-2 hover:bg-slate-950"
+                          alt="thumbnail of projects"
+                        />
+                      ))} */}
+                    {/*  */}
                     <AlertDialog>
                       <AlertDialogTrigger>
-                        <div className={`${userId ? "block" : "hidden"} bg-transparent w-full h-full absolute top-4 right-4 left-2`}>
-                        </div>
+                        <div
+                          className={`${
+                            userId ? "block" : "hidden"
+                          } w-[90%] h-40 absolute top-4 right-2`}
+                        ></div>
                       </AlertDialogTrigger>
                       <AlertDialogContent className="w-[80%] bg-slate-300 text-black rounded-2xl sm:rounded-2xl mx-auto">
                         <AlertDialogHeader>
@@ -117,7 +128,9 @@ const Projects = () => {
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel className="rounded-2xl hover:bg-slate-400">Cancel</AlertDialogCancel>
+                          <AlertDialogCancel className="rounded-2xl hover:bg-slate-400">
+                            Cancel
+                          </AlertDialogCancel>
                           <AlertDialogAction
                             onClick={() => deleteProject({ project })}
                           >
@@ -126,8 +139,18 @@ const Projects = () => {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
+                    {processing ? (
+                      <div className="absolute z-50 flex items-center gap-4 bg-white rounded-2xl py-5 text-black">
+                        <div>
+                          <Loader size={32} className="animate-spin mx-2" />
+                        </div>
+                        <h2 className="text-2xl">please wait...</h2>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </CardItem>
-                  <div className="flex justify-between items-center gap-3 my-20">
+                  <div className="flex justify-center items-center gap-4">
                     <CardItem
                       translateZ={20}
                       translateX={-40}
@@ -144,7 +167,7 @@ const Projects = () => {
                         href={`${
                           project.weblink
                             ? project.weblink
-                            : project.projectImage
+                            : project.projectImages
                         }`}
                         target="_blank"
                         className="px-4 py-0 cursor-pointer rounded-xl text-xl font-normal bg-slate-300 text-black"
