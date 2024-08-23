@@ -16,6 +16,7 @@ import { logout } from "@/lib/authSlice";
 import Login from "@/components/Login";
 import Footer from "./Footer";
 import Logout from "./Logout";
+import Link from "next/link";
 
 const Admin = () => {
   const router = useRouter();
@@ -41,10 +42,8 @@ const Admin = () => {
       });
   };
 
-  if (!userId) {
-    return <Login />;
-  }
-  return (
+
+  return userId ? (
     <div className="w-full h-full">
       <div className="w-full md:h-screen text-slate-400 md:px-14 px-4">
         <div className="flex my-2 h-16 justify-between items-center px-2 rounded-xl">
@@ -80,7 +79,11 @@ const Admin = () => {
         </div>
       </div>
     </div>
-  );
+  ) : (
+      <div className="w-full h-screen flex justify-center items-start">
+        <h1 className="text-3xl font-bold text-slate-400 mt-12">Please <Link href="/login" className="text-blue-400 underline">login...</Link></h1>
+      </div>
+  )
 };
 
 export default Admin;

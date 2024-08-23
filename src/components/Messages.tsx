@@ -14,6 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-toastify";
+import { Loader } from "lucide-react";
 
 
 interface ImessageData {
@@ -33,7 +34,7 @@ const Messages:React.FC = () => {
   createdAt: ""
   }]);
   const [messageId, setMessageId] = useState<string | null | undefined>("");
-
+  const [processing, setProcessing] = useState(false);
   
   const dataFetch = useCallback(async () => {
     const res = await axios.get("/api/visitorMessage/get");
@@ -43,7 +44,8 @@ const Messages:React.FC = () => {
     dataFetch();
   }, []);
 
-    const deleteMessage = async ({ message }: { message: ImessageData }) => {
+  const deleteMessage = async ({ message }: { message: ImessageData }) => {
+    setProcessing(true);
       await axios
         .post("/api/visitorMessage/delete", { id: messageId })
         .then((res) =>
@@ -58,7 +60,8 @@ const Messages:React.FC = () => {
             autoClose: 2000,
           })
         );
-      const newdata = data.filter((messageItem) =>( messageItem !== message));
+    const newdata = data.filter((messageItem) => (messageItem !== message));
+    setProcessing(false);
       setData(newdata);
     };
   
@@ -68,10 +71,12 @@ const Messages:React.FC = () => {
         <div className="w-96 mx-auto flex flex-col gap-2 h-60 overflow-y-scroll">
           {data
             ? data.map((message, index) => (
-              <div
-                id={message?._id}
-                key={index}
-                onClick={(e)=>setMessageId(e.currentTarget.getAttribute("id"))}
+                <div
+                  id={message?._id}
+                  key={index}
+                  onClick={(e) =>
+                    setMessageId(e.currentTarget.getAttribute("id"))
+                  }
                   className="w-96 bg-slate-800 relative rounded-xl inline-block px-4 font-medium"
                 >
                   <div className="flex justify-between gap-1">
@@ -83,9 +88,9 @@ const Messages:React.FC = () => {
                     <h3 className="my-2">
                       <AlertDialog>
                         <AlertDialogTrigger>
-                          <RiDeleteBin6Fill size={20} color="red"/>
+                          <RiDeleteBin6Fill size={20} color="red" />
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="max-w-72 bg-white rounded-2xl md:rounded-2xl  text-black">
                           <AlertDialogHeader>
                             <AlertDialogTitle>
                               Are you absolutely sure?
@@ -95,17 +100,35 @@ const Messages:React.FC = () => {
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={()=>deleteMessage({message})}>Delete</AlertDialogAction>
+                            <AlertDialogCancel className="hover:bg-slate-400 rounded-2xl">
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                            onClick={() => deleteMessage({ message })}
+                            >
+                              <span className="hover:bg-red-400 px-5 py-2.5 rounded-2xl">Delete</span>
+                            </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
                     </h3>
                   </div>
-                  <p className="text-[15px]">message: {message?.visitorMessage}</p>
+                  <p className="text-[15px]">
+                    message: {message?.visitorMessage}
+                  </p>
                 </div>
               ))
             : "Loading..."}
+          {processing ? (
+            <div className="absolute z-50 flex items-center gap-4 bg-white rounded-2xl py-5 text-black">
+              <div>
+                <Loader size={32} className="animate-spin mx-2" />
+              </div>
+              <h2 className="text-2xl">please wait...</h2>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

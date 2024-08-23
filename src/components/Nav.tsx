@@ -11,7 +11,7 @@ function Nav() {
    
   return (
     <div className="w-full mt-10 text-center hidden sm:block">
-      <nav className=" flex justify-center items-center gap-8 text-slate-400">
+      <nav className=" flex justify-center items-center md:gap-8 gap-2 text-slate-400 mx-10">
         <div>
           <Link
             href="#About"

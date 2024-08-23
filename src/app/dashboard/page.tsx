@@ -22,22 +22,6 @@ const page = () => {
   return (
     <div className="w-full h-full">
       <Admin />
-      {/* <div>
-        <h1 className="text-3xl font-bold">upload Images</h1>
-          <input type="text"
-            value={name}
-            onChange={(e)=>setName(e.target.value)}
-          />
-          <input
-            type="file"
-            id="file"
-            name="file"
-            multiple={true}
-            maxLength={2}
-            onChange={(e)=>setImage(e.target?.files)}
-          />
-          <button onClick={handleSubmit}>click</button>
-      </div> */}
     </div>
   );
 };

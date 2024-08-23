@@ -1,14 +1,16 @@
 import axios from "axios";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
-import CircleSpinner from "../CircleSpinner";
+import { Loader2Icon } from "lucide-react";
 
 const UploadProjects = () => {
       const [projectName, setProjectName] = useState("");
       const [projectLink, setProjectLink] = useState("");
       const [projectImage, setProjectImage] = useState<FileList | null>(null);
       const [buttonDisabled, setButtonDisabled] = useState(true);
-      const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
       const onSubmitProjectHandler = async (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -28,6 +30,7 @@ const UploadProjects = () => {
                 setProjectName("");
                 setProjectLink("");
           setProjectImage(null);
+          if (fileInputRef.current) fileInputRef.current.value = "";
           setLoading(false)
         } catch (error:any) {
           console.log(error);
@@ -35,6 +38,7 @@ const UploadProjects = () => {
           setProjectName("");
           setProjectLink("");
           setProjectImage(null);
+          if (fileInputRef.current) fileInputRef.current.value = "";
         }
   };
   
@@ -68,6 +72,7 @@ const UploadProjects = () => {
             className="px-2 w-full md:w-56 py-1 rounded-md my-2 bg-slate-500/15 outline-none text-xl placeholder:text-base"
           />
           <input
+            ref={fileInputRef}
             type="file"
             multiple={true}
             onChange={(e) => setProjectImage(e.target?.files)}
@@ -75,16 +80,19 @@ const UploadProjects = () => {
           />
           <button
             onClick={onSubmitProjectHandler}
+            disabled={buttonDisabled}
             className={`my-2 hover:opacity-50 flex justify-center items-center gap-1 transition-colors sm:w-32 py-2 px-4 font-semibold text-base text-black rounded-xl cursor-pointer bg-green-500 ${
               buttonDisabled ? "opacity-30" : ""
             } `}
           >
             {loading ? (
-             <CircleSpinner/> 
+              <div className="flex items-center gap-2">
+                <Loader2Icon size={20} className="animate-spin" />
+                <h2>uploading...</h2>
+              </div>
             ) : (
-              ""
+              "upload"
             )}
-            {loading ? "uploading..." : "upload"}
           </button>
         </form>
       </div>

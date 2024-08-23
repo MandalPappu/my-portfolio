@@ -2,32 +2,29 @@
 import React, {
   MouseEvent,
   useCallback,
-  useContext,
   useEffect,
   useState,
 } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { BackgroundGradient } from "./ui/background-gradient";
 import { FlipWords } from "./ui/flip-words";
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
-import CircleSpinner from "./CircleSpinner";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 
 const words = [
-  "Mern",
+  "Mern_Stack",
   "ReactJS",
   "NextJS",
   "NodeJS",
   "MongoDB",
   "PostgreSQL",
   "ExpressJS",
-  "DevOps",
-  "Blockchain",
+
 ];
 const typeWriterWords = [
   {
@@ -132,25 +129,26 @@ const Hero = () => {
                 userId ? "block" : "hidden"
               } py-1 px-3 ml-4 rounded-xl font-semibold text-black`}
             >
-              {processing
-                ? <div className="flex items-center gap-2">
+              {processing ? (
+                <div className="flex items-center gap-2">
                   <Loader2 size={15} className="animate-spin" />
                   <h2>deleting...</h2>
-                </div> 
-                : "Delete resume"}
-
+                </div>
+              ) : (
+                "Delete resume"
+              )}
             </button>
           </div>
         </div>
         <div className="w-full sm:w-1/2 flex justify-center sm:items-center py-4 ">
           <div className="w-80 hidden h-80 md:h-96 md:flex justify-center items-center">
-            <BackgroundGradient className="dark:bg-zinc-900 rounded-2xl">
-              <img
-                src="../../profile.jpg"
-                alt="profile-image"
-                className="w-80 h-80 rounded-3xl sm:h-60 lg:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
-              />
-            </BackgroundGradient>
+            <Image
+              src="/profile.jpg"
+              width={232}
+              height={232}
+              alt="profile-image"
+              className="w-80 h-80 rounded-full sm:h-80 lg:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
+            />
           </div>
           <img
             src="../../profile.jpg"

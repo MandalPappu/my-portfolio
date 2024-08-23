@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
                 message: "all fields are required"
             })
         }
-        const user = await User.findOne({ email: "one@gmail.com" })
+        const user = await User.findOne({ email: process.env.ADMIN_CREDENTIAL })
 
         if (user) {
             return NextResponse.json({

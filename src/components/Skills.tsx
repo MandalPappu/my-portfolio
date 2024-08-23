@@ -12,7 +12,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { BackgroundGradient } from "./ui/background-gradient";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import CircleSpinner from "./CircleSpinner";
@@ -88,60 +87,58 @@ const Skills = () => {
       <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
         Skills
       </h1>
-      <div className="w-full md:mx-auto lg:mx-auto flex justify-center flex-wrap items-center mt-7 px-5">
+      <div className="md:w-[70%] md:mx-auto lg:mx-auto flex justify-center flex-wrap items-center gap-10 mt-7 px-5">
         {data
           ? data.map((skill, index) => (
               <div
                 id={skill?._id}
                 key={index}
                 onClick={(e) => setSkillId(e.currentTarget.getAttribute("id"))}
-                className={`rounded-xl relative w-28 md:w-36 text-center flex justify-center items-center flex-col m-4`}
+                className={`rounded-xl relative w-36 text-center flex justify-center items-center flex-col m-4`}
               >
-                <BackgroundGradient className="w-24 p-1">
-                  <div className="bg-black/75 relative rounded-2xl flex justify-center items-center flex-col">
-                    <img
-                      src={
-                        skill?.skillImage ? skill.skillImage : "skill not found"
-                      }
-                      alt="skill-image"
-                      className="w-20 h-20 object-contain mt-2"
-                    />
-                    <h1 className="text-center text-white font-semibold text-normal px-1">
-                      {skill.skillName ? skill.skillName : "not found"}
-                    </h1>
-                    <div className="w-full h-full rounded-2xl z-50">
-                      <AlertDialog>
-                        <AlertDialogTrigger>
-                          <div
-                            className={`${
-                              userId ? "block" : "hidden"
-                            } w-full h-full rounded-2xl z-50 absolute bottom-4 right-3`}
-                          ></div>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent className="w-[80%] bg-slate-300 text-black rounded-2xl sm:rounded-2xl">
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Are you absolutely sure?
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Do You Want To Delete?
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel className="px-4 py-2 rounded-xl hover:bg-slate-400">
-                              Cancel
-                            </AlertDialogCancel>
-                            <AlertDialogAction
-                              onClick={() => deleteSkill({ skill })}
-                            >
-                              Delete
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </div>
+                <div className="bg-zinc-700 border-1 w-full h-40 relative rounded-2xl text-center">
+                  <img
+                    src={
+                      skill?.skillImage ? skill.skillImage : "skill not found"
+                    }
+                    alt="skill-image"
+                    className="w-20 h-20 object-contain my-2 mx-auto"
+                  />
+                  <h1 className=" text-center text-white overflow-hidden">
+                    {skill.skillName ? skill.skillName : "not found"}
+                  </h1>
+                  <div className="w-full h-full rounded-2xl z-50">
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <div
+                          className={`${
+                            userId ? "block" : "hidden"
+                          } w-full h-full rounded-2xl z-50 absolute bottom-4 right-3`}
+                        ></div>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="w-[80%] bg-slate-300 text-black rounded-2xl sm:rounded-2xl">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Do You Want To Delete?
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="px-4 py-2 rounded-xl hover:bg-slate-400">
+                            Cancel
+                          </AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => deleteSkill({ skill })}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
-                </BackgroundGradient>
+                </div>
               </div>
             ))
           : "not found"}
