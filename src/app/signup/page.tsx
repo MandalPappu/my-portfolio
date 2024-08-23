@@ -5,20 +5,27 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
+import { useAppSelector } from "@/lib/hooks";
+import { RootState } from "@/lib/store";
 
 interface IUser {
   email: string;
   password: string;
 }
 
-const page:React.FC = ():ReactNode => {
+const page: React.FC = (): ReactNode => {
+  const userId = useAppSelector((state: RootState) => state.auth.userId);
+  const router = useRouter();
+  if (userId) {
+    router.back()
+  }
   const [userData, setUserData] = useState<IUser>({
     email: '',
     password: ''
   });
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const router = useRouter()
+ 
 
   const handleSubmite = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,9 +55,11 @@ const page:React.FC = ():ReactNode => {
     } else {
       setButtonDisabled(false)
     }
-  },[userData.email, userData.password])
+  }, [userData.email, userData.password])
+  
 
-  return (
+
+  return userId ? "" : (
     <div className="w-full h-screen bg-slate-950 text-slate-600 flex justify-center p-8">
       <div className="flex flex-col">
         <h1 className="text-2xl md:text-4xl font-bold my-3 text-center">
