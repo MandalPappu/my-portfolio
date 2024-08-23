@@ -1,8 +1,8 @@
 'use client'
-import React, { ReactNode } from "react"
+import React from "react"
 import Admin from "@/components/Admin";
 
-const page:React.FC = ():ReactNode => {
+const page = () => {
 
   return (
     <div className="w-full h-full">

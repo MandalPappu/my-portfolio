@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import UploadVisitorMessage from "@/components/Uploads/UploadVisitorMessage";
-import CorouselImage from "@/components/CarousalImag";
 
-const page: React.FC = () => {
+
+const page = () => {
   const About = lazy(()=> import("@/components/About"))
   const Skills = lazy(()=> import("@/components/Skills"))
   const Projects = lazy(() => import("@/components/Projects"));

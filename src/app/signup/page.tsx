@@ -1,5 +1,5 @@
 "use client"
-import React, { FormEvent, ReactNode, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -13,7 +13,7 @@ interface IUser {
   password: string;
 }
 
-const page: React.FC = (): ReactNode => {
+const page = () => {
   const userId = useAppSelector((state: RootState) => state.auth.userId);
   const router = useRouter();
   if (userId) {

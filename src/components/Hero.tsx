@@ -98,7 +98,7 @@ const Hero = () => {
         <div className="w-full sm:w-1/2 sm:mt-20 text-center sm:text-start">
           <p className="text-3xl md:text-4xl my-4">Hi,</p>
           <h2 className="text-2xl sm:text-xl md:text-3xl lg:text-6xl my-4 ">
-            I'm Pappu Mandal
+            I&apos;m Pappu Mandal
           </h2>
           <h1 className="text-4xl my-4 flex justify-center sm:block">
             <TypewriterEffectSmooth
