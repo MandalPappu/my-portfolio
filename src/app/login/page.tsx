@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React, { ReactNode} from "react";
 import Login from "@/components/Login";
 import { useAppSelector } from "@/lib/hooks";
@@ -11,9 +11,10 @@ const page: React.FC = (): ReactNode => {
   if (userId) {
     router.back();
   }
+  
   return userId ? "" : (
-    <Login/>
-  )
+    <Login />
+  );
 }
 
 export default page;

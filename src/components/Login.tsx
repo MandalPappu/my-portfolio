@@ -1,3 +1,4 @@
+"use client"
 import { login } from "@/lib/authSlice";
 import { useAppSelector } from "@/lib/hooks";
 import { AppDispatch, RootState } from "@/lib/store";
@@ -6,7 +7,6 @@ import { useRouter } from "next/navigation";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import Hero from "./Hero";
 import Admin from "./Admin";
 import { Loader2Icon } from "lucide-react";
 
@@ -65,9 +65,7 @@ const Login = () => {
         }
     }, [userData.email, userData.password]);
 
-    if (userId) {
-        return <Admin/>
-    } else {
+
         return (
           <div className="w-full h-screen bg-slate-950 text-slate-600 flex justify-center p-8">
             <div className="flex flex-col">
@@ -120,7 +118,7 @@ const Login = () => {
           </div>
         );
     }
-}
+
 
 
 export default Login;
