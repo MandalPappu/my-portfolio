@@ -14,8 +14,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
-import CircleSpinner from "./CircleSpinner";
-import { Span } from "next/dist/trace";
 import { Loader } from "lucide-react";
 
 interface ISkill {
@@ -80,23 +78,23 @@ const Skills = () => {
     </h1>
   ) : (
     <div
-      className={`w-full text-center sm:px-28 ${
+      className={`w-full text-center lg:px-28 ${
         data.length > 0 ? "block" : "hidden"
       }`}
     >
       <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
         Skills
       </h1>
-      <div className="md:w-[70%] md:mx-auto lg:mx-auto flex justify-center flex-wrap items-center gap-10 mt-7 px-5">
+      <div className="md:w-[70%] mx-auto flex justify-center flex-wrap items-center gap-6 mt-7 px-5">
         {data
           ? data.map((skill, index) => (
               <div
                 id={skill?._id}
                 key={index}
                 onClick={(e) => setSkillId(e.currentTarget.getAttribute("id"))}
-                className={`rounded-xl relative w-36 text-center flex justify-center items-center flex-col m-4`}
-              >
-                <div className="bg-zinc-700 border-1 w-full h-40 relative rounded-2xl text-center">
+                className={`rounded-xl relative w-36 text-center flex justify-center items-center flex-col`}
+              > 
+                <div className="bg-zinc-700 border-1 w-full h-40 relative rounded-2xl text-center hover:scale-125 hover:animate-bounce animate-pulse">
                   <img
                     src={
                       skill?.skillImage ? skill.skillImage : "skill not found"

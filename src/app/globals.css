@@ -20,3 +20,10 @@ body{
   background-color: transparent;
   /* border-radius: 30%; */
 }
+
+
+.text-gredient {
+  background: -webkit-linear-gradient(#ca0bf5, #4299ef);
+  -webkit-background-clip:text ;
+  -webkit-text-fill-color: transparent;
+}

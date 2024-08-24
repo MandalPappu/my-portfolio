@@ -440,8 +440,8 @@ const UploadVisitorMessage = () => {
   
   return (
     <div className="w-full h-full text-center">
-      <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
-        Contact
+      <h1 className="w-32 mx-auto text-xl md:text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
+        Contact me
       </h1>
       <div className="w-full relative flex justify-center md:justify-between md:gap-4 items-center">
         <div className="w-full md:w-[90%] lg:ml-20 ml-4 hidden md:block">

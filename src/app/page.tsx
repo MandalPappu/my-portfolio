@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import UploadVisitorMessage from "@/components/Uploads/UploadVisitorMessage";
 
-
 const page = () => {
   const About = lazy(()=> import("@/components/About"))
   const Skills = lazy(()=> import("@/components/Skills"))
@@ -20,12 +19,17 @@ const page = () => {
         <Suspense
           fallback={<h1 className="text-center text-3xl">Loading...</h1>}
         >
-          <About />
-          <Skills />
-          <Projects />
+          <div id="About">
+            <About />
+          </div>
+          <div id="Skills">
+            <Skills />
+          </div>
+          <div id="Projects">
+            <Projects />
+          </div>
         </Suspense>
-        {/* <CorouselImage/> */}
-        <div className="w-full">
+        <div id="Contact" className="w-full">
           <UploadVisitorMessage />
         </div>
         <div>

@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
             const res: any = await uploadOnCloudinary(projectImage[img], "my-portfolio/myworkfolio-project-images")
             imgArray.push(res.url)
         }
-console.log(imgArray);
 
         if (imgArray.length <= 0) {
             return NextResponse.json({

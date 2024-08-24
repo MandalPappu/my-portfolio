@@ -140,7 +140,7 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        <div className="w-full sm:w-1/2 flex justify-center sm:items-center py-4 ">
+        <div className="w-full sm:w-1/2 flex justify-center sm:items-center py-4 -mb-20">
           <div className="w-80 h-80 md:h-96 md:flex justify-center items-center">
             <Image
               src="/profile.jpg"
@@ -150,11 +150,6 @@ const Hero = () => {
               className="w-52 h-52 rounded-full sm:w-80 sm:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
             />
           </div>
-          {/* <img
-            src="../../profile.jpg"
-            alt="profile-image"
-            className="w-52 h-52 md:hidden rounded-full sm:h-60 lg:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
-          /> */}
         </div>
       </div>
     </>

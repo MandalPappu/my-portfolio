@@ -82,13 +82,21 @@ const Projects = () => {
       <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
         Projects
       </h1>
-      <div className="w-full flex flex-wrap justify-center md:gap-6 lg:gap-10 sm:px-16 lg:px-28">
-        {data &&
+      <div className="w-full relative flex flex-wrap justify-center md:gap-6 lg:gap-10 sm:px-16 lg:px-28 mt-6">
+        {processing ? (
+                <div className="absolute top-8 z-50 flex items-center gap-4 bg-white rounded-2xl py-5 text-black">
+                  <div>
+                    <Loader size={32} className="animate-spin mx-2" />
+                  </div>
+                  <h2 className="text-2xl">please wait...</h2>
+                </div>
+              ) : (
+                ""
+              )}
+          {data &&
           data.map((project, index) => (
-            <CardContainer
-              key={index}
-              className="object-cover rounded-2xl px-2"
-            >
+            <CardContainer className="object-cover rounded-2xl px-2 relative">
+              
               <CardBody className=" group/card hover:shadow-emerald-500 shadow-2xl dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl border-[1px] border-slate-700 ">
                 <div
                   id={project?._id}
@@ -100,16 +108,6 @@ const Projects = () => {
                 >
                   <CardItem translateZ="100" className="w-full relative">
                     <CarousalImage imgData={project?.projectImages} />
-                    {/* {project?.projectImage &&
-                      project?.projectImage.map((image, index) => (
-                        <img
-                          key={index}
-                          src={`${image}`}
-                          className="object-contain group-hover/card:shadow-xl px-2 hover:bg-slate-950"
-                          alt="thumbnail of projects"
-                        />
-                      ))} */}
-                    {/*  */}
                     <AlertDialog>
                       <AlertDialogTrigger>
                         <div
@@ -139,16 +137,6 @@ const Projects = () => {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
-                    {processing ? (
-                      <div className="absolute z-50 flex items-center gap-4 bg-white rounded-2xl py-5 text-black">
-                        <div>
-                          <Loader size={32} className="animate-spin mx-2" />
-                        </div>
-                        <h2 className="text-2xl">please wait...</h2>
-                      </div>
-                    ) : (
-                      ""
-                    )}
                   </CardItem>
                   <div className="flex justify-center items-center gap-4">
                     <CardItem

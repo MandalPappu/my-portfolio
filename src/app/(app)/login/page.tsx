@@ -9,7 +9,7 @@ const page = () => {
   const userId = useAppSelector((state: RootState) => state.auth.userId);
   const router = useRouter();
   if (userId) {
-    router.back();
+    router.push("/");
   }
   
   return userId ? "" : (

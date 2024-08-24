@@ -18,7 +18,7 @@ import { Compare } from "@/components/ui/compare";
 import { TextGenerateEffect } from "./ui/text-generate-effect";
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
-import CircleSpinner from "./CircleSpinner";
+import { Loader2 } from "lucide-react";
 
 
 interface IAbout{
@@ -78,7 +78,7 @@ const  About = () => {
       about is Loading...
     </h1>
   ) : (
-    <div className={`${data ? "block" : "hidden"} w-full my-4 md:my-0 sm:px-0 md:pr-20`}>
+    <div id="#about" className={`${data ? "block" : "hidden"} w-full my-4 md:my-0 sm:px-0 md:pr-20`}>
       <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">About</h1>
       <div className="flex flex-col sm:flex-row justify-center items-center gap-1 relative">
         <Compare
@@ -91,7 +91,7 @@ const  About = () => {
         />
         {data ? (
           <div
-            key={data?._id}
+              key={data?._id}           
             className={`w-full px-8 md:w-[40rem] text-2xl leading-relaxed mx-auto text-slate-300`}
           >
             <TextGenerateEffect
@@ -100,7 +100,7 @@ const  About = () => {
               filter={false}
               className="text-slate-300"
               />
-              {processing ? <CircleSpinner classname="text-4xl "/> : ""}
+              {processing ? <Loader2 size={20}/> : ""}
             <span className={`${userId ? "inline" : "hidden"}`}>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
