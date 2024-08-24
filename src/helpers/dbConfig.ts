@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 
-// const DB_NAME:string = "My-Portfolio"
+const DB_NAME:string = "My-Portfolio"
 
 type ConnectionObject = {
     isConnected?: number;
@@ -18,7 +18,8 @@ async function dbConnect(): Promise<void> {
 
     try {
         // Attempt to connect to the database
-        const db = await mongoose.connect(`${process.env.MONGODB_URI!}/My-Portfolio` || '', {});
+        
+        const db = await mongoose.connect(`${process.env.MONGODB_URI!}/${DB_NAME}` || '', {});
 
         connection.isConnected = db.connections[0].readyState;
 
