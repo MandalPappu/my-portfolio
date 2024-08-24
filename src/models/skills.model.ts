@@ -1,17 +1,24 @@
 
-import mongoose, { Schema, Document, ObjectId } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 interface skill extends Document {
-    _id:ObjectId
     skillName: string
     skillImage: string
     weblink?: string
 }
 const skillSchema: Schema<skill> = new Schema({
-    _id:Schema.Types.ObjectId,
-    skillName: String,
-    skillImage: String,
-    weblink: String
+    skillName: {
+        type: String,
+        required: true,
+        trim:true
+    },
+    skillImage: {
+        type: String,
+        required: true,
+    },
+    weblink: {
+        type: String,
+    }
 
 });
 

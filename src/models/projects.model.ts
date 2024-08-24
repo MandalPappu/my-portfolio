@@ -1,14 +1,12 @@
 
-import mongoose, { Schema, Document, ObjectId } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 interface project extends Document {
-    _id:ObjectId
     projectName: string
     projectImages: Array<string> 
     weblink?: string
 }
 const projectSchema: Schema<project> = new Schema({
-    _id: Schema.Types.ObjectId,
     projectName: {
         type: String,
         required: true
