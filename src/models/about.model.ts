@@ -1,10 +1,12 @@
 
-import mongoose, { Schema, Document  } from "mongoose";
+import mongoose, { Schema, Document, ObjectId  } from "mongoose";
 
 interface about extends Document {
+    _id:ObjectId
     aboutData: string
 }
 const aboutSchema: Schema<about> = new Schema({
+    _id: Schema.Types.ObjectId,
     aboutData: String
 });
 

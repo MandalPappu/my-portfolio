@@ -1,10 +1,12 @@
 
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 interface resume extends Document {
+    _id:ObjectId
     resume: string
 }
-const resumeSchema:Schema<resume> = new Schema({
+const resumeSchema: Schema<resume> = new Schema({
+    _id: Schema.Types.ObjectId,
     resume: String
 });
 
