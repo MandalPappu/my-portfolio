@@ -3,7 +3,7 @@ import dbConnect from "@/helpers/dbConfig";
 import uploadOnCloudinary from "@/helpers/cloudinary";
 import skillModel from "@/models/skills.model";
 
-export const skillFolder = "my-portfolio/myworkfolio-skill-images"
+
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
                 message: "all fields are required"
             }, { status: 401 })
         };
-        const skillImages:any = await uploadOnCloudinary(skillImage, "my-portfolio/myworkfolio-skill-images");
+        const skillImages: any = await uploadOnCloudinary(skillImage, "my-portfolio/myworkfolio-skill-images");
         
         const skillImageUrl = skillImages.url
 

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import resumeModel from "@/models/resume.model";
-import { skillFolder } from "../../skill/add/route";
 import { deleteOnCloudinary } from "@/helpers/cloudinary";
 
 export async function DELETE(req:NextRequest) {
@@ -22,7 +21,7 @@ export async function DELETE(req:NextRequest) {
         const ResumeImg = res?.resume?.split("/");
         const img = ResumeImg?.pop();
         const imgName = img?.split(".")[0]
-        const imgFile =`${skillFolder}/${imgName}`
+        const imgFile = `${"my-portfolio/myworkfolio-skill-images"}/${imgName}`
           
         const deleteRes = await deleteOnCloudinary(imgFile);
         

@@ -3,7 +3,6 @@ import dbConnect from "@/helpers/dbConfig";
 import projectModel from "@/models/projects.model";
 import uploadOnCloudinary from "@/helpers/cloudinary";
 
-export const projectFolder = "my-portfolio/myworkfolio-project-images"
 
 export async function POST(req: NextRequest) {
     await dbConnect();

@@ -5,7 +5,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const LoginPage = () => {
   const userId = useAppSelector((state: RootState) => state.auth.userId);
   const router = useRouter();
   if (userId) {
@@ -17,4 +17,4 @@ const page = () => {
   );
 }
 
-export default page;
+export default LoginPage;

@@ -2,7 +2,7 @@
 import React from "react"
 import Admin from "@/components/Admin";
 
-const page = () => {
+const AdminPage = () => {
 
   return (
     <div className="w-full h-full">
@@ -11,4 +11,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AdminPage;

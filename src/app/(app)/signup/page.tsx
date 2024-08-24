@@ -13,7 +13,7 @@ interface IUser {
   password: string;
 }
 
-const page = () => {
+const SignupPage = () => {
   const userId = useAppSelector((state: RootState) => state.auth.userId);
   const router = useRouter();
   if (userId) {
@@ -118,4 +118,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignupPage;

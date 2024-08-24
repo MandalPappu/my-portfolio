@@ -144,8 +144,8 @@ const Hero = () => {
           <div className="w-80 h-80 md:h-96 md:flex justify-center items-center">
             <Image
               src="/profile.jpg"
-              width={232}
-              height={232}
+              width={532}
+              height={532}
               alt="profile-image"
               className="w-52 h-52 rounded-full sm:w-80 sm:h-80 object-fill mx-auto py-3 px-2 md:py-2 outline-none"
             />

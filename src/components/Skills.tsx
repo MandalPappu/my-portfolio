@@ -15,6 +15,7 @@ import {
 import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import { Loader } from "lucide-react";
+import Image from "next/image";
 
 interface ISkill {
   _id: string;
@@ -95,10 +96,10 @@ const Skills = () => {
                 className={`rounded-xl relative w-36 text-center flex justify-center items-center flex-col`}
               > 
                 <div className="bg-zinc-700 border-1 w-full h-40 relative rounded-2xl text-center hover:scale-125 hover:animate-bounce animate-pulse">
-                  <img
-                    src={
-                      skill?.skillImage ? skill.skillImage : "skill not found"
-                    }
+                <Image
+                  width={300}
+                  height={300}
+                    src={skill?.skillImage }
                     alt="skill-image"
                     className="w-20 h-20 object-contain my-2 mx-auto"
                   />

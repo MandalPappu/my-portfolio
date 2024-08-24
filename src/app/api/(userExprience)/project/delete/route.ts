@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import projectModel from "@/models/projects.model";
-import { projectFolder } from "../add/route";
 import { deleteOnCloudinary } from "@/helpers/cloudinary";
 
 export async function POST(req: NextRequest) {
@@ -16,7 +15,7 @@ export async function POST(req: NextRequest) {
             const projectImg = projectImages[i].split("/")
             const img = projectImg.pop();
             const imgName = img.split(".")[0]
-            imgFile.push(`${projectFolder}/${imgName}`);
+            imgFile.push(`${"my-portfolio/myworkfolio-project-images"}/${imgName}`);
         };
         console.log(imgFile);
         const deleteImageRes = [];

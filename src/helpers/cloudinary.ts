@@ -7,7 +7,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const uploadOnCloudinary = async (file: File, folder: string) => {
+const uploadOnCloudinary = async (file: File, folder: string | undefined) => {
     const buffer = await file.arrayBuffer();
     const bytes = Buffer.from(buffer)
 

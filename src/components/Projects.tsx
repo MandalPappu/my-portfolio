@@ -95,7 +95,7 @@ const Projects = () => {
               )}
           {data &&
           data.map((project, index) => (
-            <CardContainer className="object-cover rounded-2xl px-2 relative">
+            <CardContainer key={index} className="object-cover rounded-2xl px-2 relative">
               
               <CardBody className=" group/card hover:shadow-emerald-500 shadow-2xl dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl border-[1px] border-slate-700 ">
                 <div

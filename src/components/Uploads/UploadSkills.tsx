@@ -20,7 +20,7 @@ e.preventDefault();
       formData.append("skillImage", skillImage);
       formData.append("skillName", skillName);
       const res = await axios
-        .post("/api/skill/add", formData)
+        .postForm("/api/skill/add", formData)
         .then((res) => res.data.message)
         .catch((res) => res.response.data.message);
 

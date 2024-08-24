@@ -9,6 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Link from "next/link";
+import Image from "next/image";
 
 interface IimagData {
   imgData: string[] | null;
@@ -44,7 +45,9 @@ const CarousalImage = ({ imgData }: IimagData) => {
                 <Card className="border-none">
                   <CardContent>
                     <Link href={img} target="_blanck">
-                      <img
+                      <Image
+                        width={500}
+                        height={500}
                         src={img}
                         alt="image"
                         className="w-full max-h-48 object-cover rounded-2xl"

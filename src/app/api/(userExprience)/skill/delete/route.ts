@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import skillModel from "@/models/skills.model";
 import { deleteOnCloudinary } from "@/helpers/cloudinary";
-import { skillFolder } from "../add/route";
+
 
 export async function POST(req:NextRequest) {
     await dbConnect();
@@ -13,7 +13,7 @@ export async function POST(req:NextRequest) {
         const imgUrl = skillImage.split("/");
         const img = imgUrl.pop();
         const imgName = img.split(".")[0]
-        const imgFile = `${skillFolder}/${imgName}`
+        const imgFile = `${"my-portfolio/myworkfolio-skill-images"}/${imgName}`
         
         const imageRes = await deleteOnCloudinary(imgFile.toString());     
         if (res._id && imageRes.result === "ok") {

@@ -23,7 +23,7 @@ const UploadProjects = () => {
           }
           formData.append("projectName", projectName);
           formData.append("projectLink", projectLink);
-          const res = await axios.post("/api/project/add", formData)
+          const res = await axios.postForm("/api/project/add", formData)
             .then((res) => res.data.message)
             .catch((res)=>res.response.data.message)
                 toast(res, { position: "top-center", autoClose: 2000 });
