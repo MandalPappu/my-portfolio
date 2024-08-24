@@ -1,10 +1,10 @@
 
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document  } from "mongoose";
 
 interface about extends Document {
     aboutData: string
 }
-const aboutSchema = new Schema({
+const aboutSchema: Schema<about> = new Schema({
     aboutData: String
 });
 

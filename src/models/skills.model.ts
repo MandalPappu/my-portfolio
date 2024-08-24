@@ -4,9 +4,9 @@ import mongoose, { Schema, Document } from "mongoose";
 interface skill extends Document {
     skillName: string
     skillImage: string
-    weblink: string
+    weblink?: string
 }
-const skillSchema = new Schema({
+const skillSchema:Schema<skill> = new Schema({
     skillName: String,
     skillImage: String,
     weblink: String

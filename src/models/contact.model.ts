@@ -8,7 +8,7 @@ interface contact extends Document {
     createdAt: Date
 
 }
-const visitorSchema = new Schema({
+const visitorSchema:Schema<contact> = new Schema({
     visitorName: String,
     visitorMessage: String,
     visitorEmail: String,

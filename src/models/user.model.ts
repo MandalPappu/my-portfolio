@@ -3,10 +3,9 @@ import mongoose, { Schema, Document } from "mongoose";
 
 interface User extends Document {
     email: string,
-    password: string,
-    timestamps: Date
+    password: string
 }
-const userModel = new Schema({
+const userModel:Schema<User> = new Schema({
     email: {
         type: String,
         req: true,
