@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/helpers/dbConfig";
 import visitorModel from "@/models/contact.model";
-import { sendingEmail } from "@/helpers/sendingEmail";
+// import { sendingEmail } from "@/helpers/sendingEmail";
 
 export async function POST(req: NextRequest) {
     await dbConnect();
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
             visitorEmail,
             visitorMessage
         })
-        await sendingEmail({ visitorEmail, visitorMessage, visitorName })
+        // await sendingEmail({ visitorEmail, visitorMessage, visitorName })
         
         if (visitorWords) {
             return NextResponse.json({
