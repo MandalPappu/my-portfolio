@@ -6,7 +6,7 @@ import visitorModel from "@/models/contact.model";
 export async function GET() {
     await dbConnect();
     try {
-        const allVisitorMessage = await visitorModel.find({})
+        const allVisitorMessage = await visitorModel.find()
         if (allVisitorMessage) {
             return NextResponse.json({
                 success: true,

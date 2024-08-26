@@ -68,7 +68,8 @@ const Messages:React.FC = () => {
 
     return (
       <div>
-        <div className="w-96 mx-auto flex flex-col gap-2 h-60 overflow-y-scroll">
+        <h1 className="text-2xl font-semibold text-center underline my-4">Message</h1>
+        <div className="w-full sm:w-96 mx-auto flex items-center flex-col gap-2 h-60  overflow-y-scroll ">
           {data
             ? data.map((message, index) => (
                 <div
@@ -77,7 +78,7 @@ const Messages:React.FC = () => {
                   onClick={(e) =>
                     setMessageId(e.currentTarget.getAttribute("id"))
                   }
-                  className="w-96 bg-slate-800 relative rounded-xl inline-block px-4 font-medium"
+                  className="w-80 bg-slate-800 relative rounded-xl inline-block px-4 font-medium"
                 >
                   <div className="flex justify-between gap-1">
                     <h1 className="text-xs">{message?.visitorName}</h1>
@@ -104,9 +105,11 @@ const Messages:React.FC = () => {
                               Cancel
                             </AlertDialogCancel>
                             <AlertDialogAction
-                            onClick={() => deleteMessage({ message })}
+                              onClick={() => deleteMessage({ message })}
                             >
-                              <span className="hover:bg-red-400 px-5 py-2.5 rounded-2xl">Delete</span>
+                              <span className="hover:bg-red-400 px-5 py-2.5 rounded-2xl">
+                                Delete
+                              </span>
                             </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>

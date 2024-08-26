@@ -64,9 +64,10 @@ const  About = () => {
           .catch((err) =>
             toast.error(err.response.data.message, {
               position: "top-center",
-              autoClose: 2000,
+              autoClose: 1000,
+              className: "mx-8 mt-6",
             })
-    );
+          );
     
     setData(null);
     setProcessing(false)

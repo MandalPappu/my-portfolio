@@ -44,46 +44,42 @@ const Admin = () => {
 
 
   return userId ? (
-    <div className="w-full h-full">
-      <div className="w-full md:h-screen text-slate-400 md:px-14 px-4">
-        <div className="flex my-2 h-16 justify-between items-center px-2 rounded-xl">
-          <h1 className="md:text-3xl text-2xl font-bold">Pappu</h1>
-          <div>
-            <Logout classname="px-4 py-2 bg-slate-800 rounded-3xl font-semibold hover:bg-slate-500 hover:text-black"/>
-          </div>
-        </div>
+    <div className="w-full h-full relative">
+      <div className="w-full bg-slate-700/20 rounded-2xl fixed z-50 py-3 flex justify-between items-center mt-2 px-4 sm:px-14 md:px-32">
+        <h1>
+          <b className="text-xl sm:text-4xl text-orange-500">{"<"}</b>{" "}
+          <span className="text-xl sm:text-4xl font-bold text-gredient">
+            <a href="/">Pappu</a>
+          </span>{" "}
+          <b className="text-xl sm:text-4xl text-orange-600">{"/>"}</b>
+        </h1>
         <div>
-          <div className="my-10 w-full">
-            <div className="flex  sm:items-center flex-wrap justify-center sm:justify-between">
-              <div>
-                <UploadSkills />
-              </div>
-              <div>
-                <UploadProjects />
-              </div>
-              <div>
-                <UploadResume />
-              </div>
-              <div>
-                <UploadAbout />
-              </div>
-            </div>
-          </div>
+          <Logout classname="text-xl font-semibold px-3 sm:px-6 py-0 rounded-2xl text-black hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 bg-gradient-to-tr from-orange-400 to-purple-500" />
         </div>
-        <div className="w-full my-10">
-          <h1 className="text-2xl font-semibold text-center my-2">Messages</h1>
-          <Messages />
+      </div>
+      <div className="w-full pt-16 px-4 sm:px-14 md:px-32">
+        <div className="ml-6 md:ml-0 sm:flex">
+          <UploadSkills />
+          <UploadProjects />
+          <UploadResume />
+          <UploadAbout />
         </div>
-        <div className="w-full">
-          <Footer />
+          <Messages/>
+        <div>
+          <Footer/>
         </div>
       </div>
     </div>
   ) : (
-      <div className="w-full h-screen flex justify-center items-start">
-        <h1 className="text-3xl font-bold text-slate-400 mt-12">Please <Link href="/login" className="text-blue-400 underline">login...</Link></h1>
-      </div>
-  )
+    <div className="w-full h-screen flex justify-center items-start">
+      <h1 className="text-3xl font-bold text-slate-400 mt-12">
+        Please{" "}
+        <Link href="/login" className="text-blue-400 underline">
+          login...
+        </Link>
+      </h1>
+    </div>
+  );
 };
 
 export default Admin;

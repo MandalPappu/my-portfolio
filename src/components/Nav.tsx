@@ -4,16 +4,16 @@ import { useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import Logout from "./Logout";
 import Link from "next/link";
-
+import { AlignJustify } from "lucide-react";
 
 
 
 function Nav() {
   const userId = useAppSelector((state: RootState) => state.auth.userId);
   return (
-    <div>
-      <div className="w-full mt-10 text-center hidden sm:block">
-        <nav className="hidden sm:flex justify-center items-center md:gap-8 gap-2 text-slate-400 mx-10">
+    <div className="">
+      <div className="w-full relative mt-10 text-center hidden sm:block">
+        <nav className="hidden px-9 py-3 rounded-3xl sm:mx-auto bg-slate-500/20 z-[999] sm:inline-flex justify-center items-center md:gap-8 gap-2 text-slate-300 mx-10">
           <div>
             <Link
               href="#About"
@@ -47,28 +47,40 @@ function Nav() {
             </Link>
           </div>
           {userId ? (
-            <Logout classname="px-4 py-2 hover:bg-slate-400 hover:text-black text-2xl font-bold rounded-3xl" />
+            <Logout classname="px-4 py-2 hover:bg-red-800 hover:text-black text-2xl font-bold rounded-3xl" />
+          ) : (
+            ""
+          )}
+          {userId ? (
+            <Link
+              href="/dashboard"
+              className="text-2xl font-semibold hover:text-green-500 hover:underline"
+            >
+              Dashboard
+            </Link>
           ) : (
             ""
           )}
         </nav>
       </div>
-      <div className="w-full z-50 py-6 sm:hidden flex justify-between items-center px-4">
-        <h1 className="">
-          <b className="text-4xl text-orange-500">{"<"}</b>{" "}
-          <span className="text-4xl font-bold text-gredient">Pappu</span>{" "}
-          <b className="text-4xl text-orange-600">{"/>"}</b>
+      <div className="w-full z-50 py-3 sm:hidden flex justify-between items-center px-4">
+        <h1>
+          <b className="text-xl sm:text-4xl text-orange-500">{"<"}</b>{" "}
+          <span className="text-xl sm:text-4xl font-bold text-gredient">
+            <Link href={userId ? "/dashboard" : "/"}>Pappu</Link>
+          </span>{" "}
+          <b className="text-xl sm:text-4xl text-orange-600">{"/>"}</b>
         </h1>
         <div>
           {userId ? (
-            <Logout classname="text-xl font-semibold px-6 py-2 rounded-2xl text-black hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 bg-gradient-to-tr from-orange-400 to-purple-500" />
+            <Logout classname="text-xl font-semibold px-3 sm:px-6 py-1 rounded-2xl text-black hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 bg-gradient-to-tr from-orange-400 to-purple-500" />
           ) : (
             <Link
-                href="#Contact"
-              className="text-xl font-semibold px-6 py-2 rounded-2xl text-black hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 bg-gradient-to-tr from-orange-400 to-purple-500"
+              href="#Contact"
+              className="text-xl font-semibold px-3 py-1 sm:px-6 sm:py-2 rounded-2xl text-black hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 bg-gradient-to-tr from-orange-400 to-purple-500"
             >
               Contact
-              </Link>
+            </Link>
           )}
         </div>
       </div>

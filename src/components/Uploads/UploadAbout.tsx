@@ -15,7 +15,7 @@ const UploadAbout = () => {
     try {
       setLoading(true)
       const res = await axios
-        .post("/api/about/add", {aboutData:`${data}`})
+        .post("/api/about/add", {aboutData:`${data.trim()}`})
         .then((res) => res.data.message)
         .catch((res) => res.response.data.message);
 
@@ -54,7 +54,7 @@ const UploadAbout = () => {
         <button
           onClick={onSubmitHandler}
           disabled={disabled}
-          className={`my-2 hover:opacity-50 flex justify-center items-center gap-1 transition-colors sm:w-32 py-2 px-4 font-semibold text-base text-black rounded-xl cursor-pointer bg-green-500 ${
+          className={`w-[10rem] mx-auto sm:mx-0 my-4 hover:opacity-50 flex justify-center items-center gap-1 transition-colors sm:w-32 py-2 px-4 font-semibold text-base text-black rounded-xl cursor-pointer bg-green-500 ${
             disabled ? "opacity-30" : ""
           } `}
         >

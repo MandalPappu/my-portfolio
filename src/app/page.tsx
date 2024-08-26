@@ -13,8 +13,10 @@ const page = () => {
   
   return (
     <div>
-      <div className="w-full h-full">
-        <Nav />
+      <div className="w-full h-full relative">
+        <div className="w-full top-0 fixed bg-slate-700/50 sm:bg-transparent shadow-3xl z-50">
+          <Nav />
+        </div>
         <Hero />
         <Suspense
           fallback={<h1 className="text-center text-3xl">Loading...</h1>}

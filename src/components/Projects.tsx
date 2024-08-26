@@ -42,8 +42,6 @@ const Projects = () => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     const response = await axios.get("/api/project/get");
-    console.log(response.data.allProjects);
-
     setData(response.data.allProjects);
     setLoading(false);
   }, []);
@@ -59,13 +57,15 @@ const Projects = () => {
       .then((res) =>
         toast.success(res.data.message, {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1000,
+          className: "mx-8 mt-6",
         })
       )
       .catch((err) =>
         toast.error(err.response.data.message, {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1000,
+          className: "mx-8 mt-6",
         })
       );
     const newdata = data.filter((item) => item !== project);
@@ -82,22 +82,24 @@ const Projects = () => {
       <h1 className="w-32 mx-auto text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
         Projects
       </h1>
-      <div className="w-full relative flex flex-wrap justify-center md:gap-6 lg:gap-10 sm:px-16 lg:px-28 mt-6">
+      <div className="w-full relative flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-10 sm:px-16 lg:px-28 mt-6 mx-auto">
         {processing ? (
-                <div className="absolute top-8 z-50 flex items-center gap-4 bg-white rounded-2xl py-5 text-black">
-                  <div>
-                    <Loader size={32} className="animate-spin mx-2" />
-                  </div>
-                  <h2 className="text-2xl">please wait...</h2>
-                </div>
-              ) : (
-                ""
-              )}
-          {data &&
+          <div className="absolute top-8 z-50 flex items-center gap-4 bg-white rounded-2xl py-5 text-black">
+            <div>
+              <Loader size={32} className="animate-spin mx-2" />
+            </div>
+            <h2 className="text-2xl">please wait...</h2>
+          </div>
+        ) : (
+          ""
+        )}
+        {data &&
           data.map((project, index) => (
-            <CardContainer key={index} className="object-cover rounded-2xl px-2 relative">
-              
-              <CardBody className=" group/card hover:shadow-emerald-500 shadow-2xl dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl border-[1px] border-slate-700 ">
+            <CardContainer
+              key={index}
+              className="object-cover rounded-2xl px-2 relative"
+            >
+              <CardBody className="w-[80%] h-[23rem] sm:w-[20rem] sm:h-[25rem] group/card hover:shadow-emerald-500 shadow-2xl dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl border-[1px] border-slate-700 ">
                 <div
                   id={project?._id}
                   key={index}
@@ -138,7 +140,7 @@ const Projects = () => {
                       </AlertDialogContent>
                     </AlertDialog>
                   </CardItem>
-                  <div className="flex justify-center items-center gap-4">
+                  <div className="flex justify-center items-center gap-4 mt-2">
                     <CardItem
                       translateZ={20}
                       translateX={-40}

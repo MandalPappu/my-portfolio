@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
         const projectImage: FileList | null = formData.getAll("projectImage") as unknown as FileList;
         const projectLink = formData.get("projectLink");
 
-        console.log("projectImage: ", projectImage);
         if (!projectName || projectImage?.length < 0) {
             return NextResponse.json({
                 success: false,

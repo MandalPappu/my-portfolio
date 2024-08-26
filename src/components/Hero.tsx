@@ -71,8 +71,8 @@ const Hero = () => {
         .delete("/api/resume/delete/", { data })
         .then((res) =>
           toast.success(res.data.message, {
-            position: "top-center",
-            autoClose: 2000,
+            position:"top-center",
+            autoClose: 2000
           })
         )
         .catch((error: any) =>
@@ -94,7 +94,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className="w-full flex sm:flex-row flex-col-reverse justify-between items-center sm:px-8 lg:px-28 ">
+      <div className="w-full mt-10 flex sm:flex-row flex-col-reverse justify-between items-center sm:px-8 lg:px-28 ">
         <div className="w-full sm:w-1/2 sm:mt-20 text-center sm:text-start">
           <p className="text-3xl md:text-4xl my-4">Hi,</p>
           <h2 className="text-2xl sm:text-xl md:text-3xl lg:text-6xl my-4 ">

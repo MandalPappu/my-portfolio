@@ -39,13 +39,15 @@ const Skills = () => {
     try {
       setLoading(true);
       const res = await axios.get("/api/skill/get");
-      console.log(res.data.allSkills);
-
       setData(res.data.allSkills);
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 1000,
+        className: "mx-8 mt-6",
+      });
     }
   }, []);
   useEffect(() => {
@@ -59,13 +61,15 @@ const Skills = () => {
       .then((res) =>
         toast.success(res.data.message, {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1000,
+          className: "mx-8 mt-6",
         })
       )
       .catch((err) =>
         toast.error(err.response.data.message, {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1000,
+          className: "mx-8 mt-6",
         })
       );
     const newdata = data.filter((item) => item !== skill);

@@ -409,7 +409,7 @@ const UploadVisitorMessage = () => {
     visitorEmail: "",
     visitorMessage: "",
   });
-  const userId = useAppSelector((state: RootState) => state.auth.userId);
+  const userId = useAppSelector((state: RootState) => state?.auth?.userId);
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false)
@@ -426,7 +426,7 @@ const UploadVisitorMessage = () => {
       visitorMessage: "",
     });
     setLoading(false);
-    toast(res, { position: "top-center", autoClose: 2000 });
+    toast(res, { position: "top-center", autoClose: 1000, className:"mx-8 mt-6" });
   };
 
   useEffect(() => {
@@ -441,7 +441,7 @@ const UploadVisitorMessage = () => {
   
   return (
     <div className="w-full h-full text-center">
-      <h1 className="w-60 mx-auto text-xl md:text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
+      <h1 className="w-36 sm:w-60 mx-auto text-xl md:text-3xl text-center font-bold mt-24 mb-6 border-b-4 rounded-2xl py-3">
         Contact me
       </h1>
       <div className="w-full relative flex justify-center md:justify-between md:gap-4 items-center">
@@ -483,7 +483,7 @@ const UploadVisitorMessage = () => {
               type="text"
               placeholder="Name"
               required={true}
-              value={data.visitorName}
+              value={data.visitorName.trim()}
               onChange={(e) =>
                 setData({ ...data, visitorName: e.target.value })
               }
@@ -493,7 +493,7 @@ const UploadVisitorMessage = () => {
               type="email"
               placeholder="Email"
               required={true}
-              value={data.visitorEmail}
+              value={data.visitorEmail.trim()}
               onChange={(e) =>
                 setData({ ...data, visitorEmail: e.target.value })
               }
@@ -505,7 +505,7 @@ const UploadVisitorMessage = () => {
               placeholder="any message for me..."
               maxLength={150}
               rows={2}
-              value={data.visitorMessage}
+              value={data.visitorMessage.trim()}
               onChange={(e) =>
                 setData({ ...data, visitorMessage: e.target.value })
               }
